@@ -1,5 +1,5 @@
 {
-  "name": "my-web-extension",
+  "name": "rodeo_shotgun_extension",
   "version": "0.0.0",
   "description": "A web extension that works in all browser.",
   "author": "Christian Bromann <christian@stateful.com>",

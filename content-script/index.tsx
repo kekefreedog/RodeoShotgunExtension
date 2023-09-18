@@ -6,7 +6,91 @@ import manifest from '../public/manifest.json' assert { type: 'json' }
 import App from './component.jsx'
 import './index.css'
 
-console.debug(`Initiate Web Extension v${manifest.version}`)
+/* "js": ["./contentScript/index.js"], */
+
+    /* function isChrome() {
+      return /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+    }
+
+  if(isChrome()) {
+
+    let logoBlack = chrome.runtime.getURL("logo-black.png");
+    let logoWhite = chrome.runtime.getURL("logo-white.png");
+
+    setTimeout(() => {
+
+        let logoBlackElBis = document.querySelector(".sg_dark_theme.login_page main div");
+        if(logoBlackElBis !== null){
+          
+          if(logoBlack)
+            logoBlackElBis.style.background = `center / contain no-repeat url("${logoWhite}")`;
+      
+        }else{
+          let logoWhiteElBis = document.querySelector(".login_page main div");
+          if(logoWhiteElBis !== null){
+            if(logoWhiteBis)
+              logoWhiteElBis.style.background = `center / contain no-repeat url("${logoBlack}")`;
+          }
+        }
+      
+        let logoBlackEl = document.querySelector(".sg_dark_theme .nav_item.sg_logo a");
+        console.log(logoBlackEl);
+        if(logoBlackEl !== null){
+          
+          if(logoBlack)
+            logoBlackEl.style.background = `center / contain no-repeat url("${logoWhite}")`;
+      
+        }else{
+          let logoWhiteEl = document.querySelector(".nav_item.sg_logo a");
+          if(logoWhiteEl !== null){
+            
+            if(logoWhite)
+              logoWhiteEl.style.background = `center / contain no-repeat url("${logoBlack}")`;
+          }
+        }
+      }, 200);
+
+      let dayEl = document.querySelector(".theme_switch .button div")
+
+
+
+      let changeLogo = () => {
+
+        setTimeout(() => {
+      
+          let logoBlackEl = document.querySelector(".sg_dark_theme .nav_item.sg_logo a");
+          console.log(logoBlackEl);
+          if(logoBlackEl !== null){
+            
+            if(logoBlack)
+              logoBlackEl.style.background = `center / contain no-repeat url("${logoWhite}")`;
+        
+          }else{
+            let logoWhiteEl = document.querySelector(".nav_item.sg_logo a");
+            if(logoWhiteEl !== null){
+              
+              if(logoWhite)
+                logoWhiteEl.style.background = `center / contain no-repeat url("${logoBlack}")`;
+            }
+          }
+
+        }, 200);
+
+
+      }
+
+      if(dayEl !== null)
+        dayEl.addEventListener(
+          "click",
+          changeLogo
+        );
+        
+
+} */
+
+
+
+/* console.debug(`Initiate Web Extension v${manifest.version}`)
 
 const pluginTagId = 'extension-root'
 const existingInstance = document.getElementById(pluginTagId)
@@ -30,3 +114,4 @@ ReactDOM.createRoot(component).render(
     <App />
   </React.StrictMode>
 )
+ */

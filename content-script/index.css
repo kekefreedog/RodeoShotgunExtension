@@ -1,4 +1,4 @@
-@tailwind base;
+/* @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -6,9 +6,241 @@
     h1 {
         @apply text-slate-700 text-xl
     }
+} */
+
+/**
+SHOTGUN FIX UI
+**/
+
+/* 
+ * page/project_overview
+ */
+
+/* Thumbnail of project */
+div.project_thumb {
+
+  /* Border radius */
+  border-radius: 12px;
+
 }
 
-/* global CSS here */
-a {
-  text-decoration: dashed;
+/* 
+ * /user/login
+ */
+
+/* Login page */
+.sg_reset_html .login_page main img {
+  /* Opacity */
+  opacity: 0;
+}
+.login_page main >div:first-child{
+  background: center / contain no-repeat url("logo-black.png");
+}
+.sg_dark_theme.login_page main >div:first-child{
+  background: center / contain no-repeat url("logo-white.png");
+}
+
+
+/**
+ * Projects
+ */
+
+img.sg_reset_img.thumb[data-cy="project_thumbnail"] {
+
+  /* Margin */
+  margin: auto;
+
+}
+
+/*
+ * Open Notes Count <-> player
+ */
+
+
+/**
+* Open Notes Count when reading movie
+*/
+
+/* Focus window */
+div.sg_focus_window {
+
+  /* Depth */
+  z-index: 9999;
+  
+}
+
+/*
+ * Widget UI
+ */
+
+/* Header custom canva */
+.sgw_canvas_wrapper .title {
+  border-radius: 10px 10px 0 0;
+}
+
+/*
+ * Tab on page
+ */
+
+/* Tab */
+.sgc_page_layout_control.sg.newflex.hbox.acenter .tab{
+  color:  #b6b6b6;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 4px;
+  margin-right: 10px;
+  border-radius: 5px;
+}
+
+/* Tab hover */
+.sgc_page_layout_control.sg.newflex.hbox.acenter .tab:hover{
+  color: white;
+  background-color: #1b7299!important;
+  cursor:pointer;
+}
+.sg_dark_theme .sgc_page_layout_control.sg.newflex.hbox.acenter .tab:hover{
+  color: black;
+}
+
+/* Tab selected */
+.sgc_page_layout_control.sg.newflex.hbox.acenter .tab.selected{
+  background-color: #0696d7;
+  color: white;
+}
+.sg_dark_theme .sgc_page_layout_control.sg.newflex.hbox.acenter .tab.selected{
+  color: black;
+}
+
+/*
+ * Header
+ */
+
+
+/* Logo */
+.nav_item.sg_logo a{
+  /* Img */
+  /* background: center / contain no-repeat url("https://vfx-toolkit.com/fixstudio/content/media/logo/shotgun/sg-classic-logo-rgb-white-medium-28-01.svg"); */
+  background: center / contain no-repeat url("logo-black.png");
+  /* Dimension */
+  height: inherit;
+  width: 135px;
+}
+
+.sg_dark_theme .nav_item.sg_logo a{
+  /* Img */
+  background: center / contain no-repeat url("logo-white.png");
+}
+
+/* Legacy Img */
+.nav_item.sg_logo a img{
+  opacity:0;
+}
+
+/* Round profile pic */
+#sg_global_nav .sg_user_thumb{
+  /* Radius */
+  border-radius: 50%;
+}
+
+
+/* Scroll bar tool left items for small screen */
+#sg_global_nav .top_left_items{
+  /* Dimension */
+  width: max-content;
+  /* Overflow */
+  overflow: auto hidden!important;
+  /* Display */
+  display: flex;
+  flex-wrap: nowrap!important;
+}
+
+/*
+ * Contextuel Menu
+ */
+
+/* Context menu */
+.sg_menu.sg_focusable
+/* .sg_menu.sg_menu_no_scroll.sg_focusable.no_checked.action_menu   */
+{
+
+  /* Border radius */
+  border-radius: 6px;
+
+}
+
+/*
+ * Form
+ */
+
+/* New entity */
+.sgc_importer, .sgc_edit_selected, .sg_dialog.sg_new_entity_form{
+  border-radius: 12px;
+}
+/* New entity header */
+.sgc_importer .header,.sg_dialog.sg_new_entity_form .form_header .dialog_drag_div{
+  border-radius: 12px 12px 0 0;
+}
+/* New entity footer */
+.sgc_importer .footer, .sg_dialog.sg_new_entity_form .form_footer{
+  border-radius: 0 0 12px 12px;
+}
+
+
+
+/*
+ * Error
+ */
+
+
+/* Fix Aristote issue */
+.sg_dark_theme div.sg_page div.page_settings_history_pane{
+  display: none;
+}
+
+/* 
+ * Clean UI
+ */
+
+/* Header > Hide Button */
+.global_nav_icon.sg.pointer.nav_icon_quickjump_light.nav_icon_quickjump{
+  /* display:none; */
+}
+/* Header Ressources planning */
+#sg_global_nav .top_left_items .res_plan{
+  /* Display */
+  /* display: none; */
+}
+
+/* Arrow in page button */
+.sg_button.page_menu_button .inline{
+  /* Display */
+  /* display:none; */
+}
+
+
+
+/**********/
+
+/**
+* New features
+*/
+.item-fix-button a{
+/*   background: red;
+  width: 25px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  cursor: pointer; */
+}
+
+
+/**
+* Designer Page
+*/
+
+/* Fix Scroll in designer page */
+div.sgc_canvas_designer_page.sg_page {
+  /* Overflow */	
+  /* overflow-y: scroll; */
 }
