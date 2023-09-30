@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ImgHTMLAttributes } from 'react'
 import ReactDOM from 'react-dom/client'
 
 import manifest from '../public/manifest.json' assert { type: 'json' }
@@ -8,9 +8,157 @@ import './index.css'
 
 /* "js": ["./contentScript/index.js"], */
 
-    /* function isChrome() {
-      return /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+
+  // Check if current browser is chrome
+  function isChrome() {
+    return /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+  }
+
+  // Wait an element
+  function waitForElements(selector:string, callback:CallableFunction, interval:number = 100, limit:number = 10) {  
+    const elements:NodeListOf<HTMLElement> = document.querySelectorAll(selector);
+    let i = 0;
+    if (elements.length > 0)
+        callback(elements);
+    else
+    if(limit>i){
+        setTimeout(() => waitForElements(selector, callback, interval), interval);
+        i++;
     }
+  } 
+
+  // Update login page logo
+  let updateLoginPage = (elements:NodeListOf<HTMLElement> ) => {
+
+    // Iteration of img
+    elements.forEach(element => {
+
+      console.log(element);
+
+      // Check
+      if(isChrome() && "src" in element){
+
+        // Replace src
+        element.src = chrome.runtime.getURL(
+          document.body.classList.contains('sg_dark_theme') 
+            ? 'logo-white.png' 
+            : "logo-black.png"
+        );
+
+        // Set style
+        element.style.opacity = "1";
+
+      }
+
+    });
+
+  };
+
+  // Update logo
+  let updateLogo = (elements:NodeListOf<HTMLElement> ) => {
+
+    // Iteration of img
+    elements.forEach(element => {
+
+      // Check
+      if(isChrome()){
+
+        // Get temp logo
+        let tempLogo = chrome.runtime.getURL(
+          document.body.classList.contains('sg_dark_theme') 
+            ? 'logo-white.png' 
+            : "logo-black.png"
+        );
+
+        // Replace src
+        let stringToReplace = element.style.background = 
+          "url('" +
+          tempLogo +
+          "') center center / contain no-repeat;"
+        ;
+
+        // Replace bg
+        element.setAttribute("style", "background:"+stringToReplace);
+        //element.style.background = stringToReplace;
+
+      }
+
+    });
+
+  };
+
+  // Update logo crew planning
+  /* let updateLogoCP = (elements:NodeListOf<HTMLElement> ) => {
+
+    // Iteration of img
+    elements.forEach(element => {
+
+      // Check
+      if(isChrome()){
+
+        // Get temp logo
+        let tempLogo = chrome.runtime.getURL('logo-white-square.png');
+
+        // Replace src
+        let stringToReplace = element.style.background = 
+          "url('" +
+          tempLogo +
+          "') center center / contain no-repeat;"
+        ;
+
+        // Replace bg
+        // element.style.background = stringToReplace;
+        element.setAttribute("style", "background:"+stringToReplace);
+
+      }
+
+    });
+
+  }; */
+
+  // Wait for img
+  waitForElements(
+    ".sg_reset_html .login_page main img",
+    updateLoginPage
+  )
+
+  // Wait for img
+  waitForElements(
+    ".nav_item.sg_logo a",
+    updateLogo
+  )
+
+  // Wait for img
+  /* waitForElements(
+    ".sgw_timeline_app.sgw_resource_planning_app  .header .title .logo",
+    updateLogoCP
+  ) */
+
+  // Check if chrome
+  /* if(isChrome()){
+
+    // Get logo
+    let images:NodeListOf<HTMLImageElement> = document.querySelectorAll('.sg_reset_html .login_page main img');
+
+    console.log(images);
+
+    // Check logo
+    if(images.length)
+
+      // Iteration of img
+      images.forEach(img => {
+
+        console.log(img);
+
+        // Replace src
+        img.src = chrome.runtime.getURL('logo-white.png');
+
+      });
+
+  } */
+
+
+  /*
 
   if(isChrome()) {
 

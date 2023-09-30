@@ -31,13 +31,22 @@ div.project_thumb {
 /* Login page */
 .sg_reset_html .login_page main img {
   /* Opacity */
+  width: 100%;
   opacity: 0;
 }
-.login_page main >div:first-child{
+.login_page main>div:first-child{
   background: center / contain no-repeat url("logo-black.png");
 }
 .sg_dark_theme.login_page main >div:first-child{
   background: center / contain no-repeat url("logo-white.png");
+}
+
+/** Button submit */
+button[name="commit"][type="submit"] {
+
+  /* Border radius */
+  border-radius: 20px!important;
+
 }
 
 
@@ -62,10 +71,10 @@ img.sg_reset_img.thumb[data-cy="project_thumbnail"] {
 */
 
 /* Focus window */
-div.sg_focus_window {
+div.sg_focus_window,div.sg_focus_window.x-resizable-pinned {
 
   /* Depth */
-  z-index: 9999;
+  z-index: 9999!important;
   
 }
 
@@ -216,7 +225,16 @@ div.sg_focus_window {
   /* display:none; */
 }
 
+/*
+ * page/crew_planning_app
+ */
 
+.sgw_timeline_app.sgw_resource_planning_app  .header .title .logo {
+
+  /* Img */
+  /* background: center / contain no-repeat url("logo-white-square.png"); */
+
+}
 
 /**********/
 

@@ -1,15 +1,16 @@
 {
   "manifest_version": 2,
-  "name": "My Web Extension",
+  "name": "ShotGrid Rodeo Fx",
   "author": "my@email.com",
-  "description": "A cross browser web extension.",
+  "description": "Extension for improving Shotgun UI.",
   "homepage_url": "https://projectUrl.com",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "content_scripts": [
     {
       "matches": ["https://shotgun.rodeofx.com/*"],
       "run_at": "document_idle",
-      "css": ["./style.css"]
+      "css": ["./style.css"],
+      "js": ["./contentScript/index.js"]
     }
   ],
   "background": {
@@ -30,5 +31,5 @@
     "144": "icon-144x144.png",
     "152": "icon-152x152.png"
   },
-  "web_accessible_resources": ["logo-white.png","logo-black.png"]
+  "web_accessible_resources": ["logo-white.png","logo-black.png", "logo-black-square.png", "logo-whote-square.png"]
 }
