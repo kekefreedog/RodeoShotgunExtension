@@ -77,6 +77,10 @@ div.sg_focus_window,div.sg_focus_window.x-resizable-pinned {
   z-index: 9999!important;
   
 }
+/* Focus dropdown context */
+div.sgc_new_popover.low_altitude {
+  z-index: 10000!important;
+}
 
 /*
  * Widget UI
@@ -86,6 +90,26 @@ div.sg_focus_window,div.sg_focus_window.x-resizable-pinned {
 .sgw_canvas_wrapper .title {
   border-radius: 10px 10px 0 0;
 }
+
+/*
+ * Media field
+ */
+
+/* Field */
+.version.seltarget.selectable .fields {
+  border-radius: 20px;
+}
+
+/* Sidenav item selected */
+.sgw_media_center li.x-tree-node .x-tree-node-el.x-tree-selected {
+  border-radius: 0 20px 20px 0;
+}
+
+/* Sidenav search input */
+.sgw_media_center .left_pane .search_and_create_wrapper .search_wrapper input.item_search {
+  border-radius: 20px;
+}
+
 
 /*
  * Tab on page

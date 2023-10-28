@@ -87,6 +87,45 @@ import './index.css'
 
   };
 
+/**
+ * Mutation
+ */
+const collectionQcToHide:Array<string> = ["QC IO"]
+const observer = new MutationObserver((mutationsList, observer) => {
+  let parent;
+  let spans;
+  let span;
+  for(let mutation of mutationsList) {
+      // Check QC IO
+      if (mutation.type === 'childList') {
+          const element = document.querySelector('.group_name');
+          for(let qcToHide of collectionQcToHide)
+            if (element && element.textContent === qcToHide) {
+                // console.log('Element QC IO found!');
+                parent = element.parentElement?.parentElement?.parentElement;
+                // Check parent
+                if(parent !== null && parent.classList.contains("group") && parent.classList.contains("collapsible") && parent.style.display !== 'none')
+                  // Switch disable
+                  parent.style.display = "none";
+                //observer.disconnect();  // Disconnect observer if element is found
+            }
+          const divs = document.querySelectorAll('tr.pivot_row.pivot_row_line, tr.pivot_row');
+          for(let div of divs){
+              spans = div.querySelectorAll('span.sg_status_icon');
+              for(let span of spans){
+                if (span !== null && span.getAttribute("sg_tip") == "Disabled (dis)" && div.style.display != 'none') {
+                  div.style.display = 'none';
+                }
+              }
+            }
+        };
+      }
+});
+
+// Start observing the document with configured parameters
+observer.observe(document, { childList: true, subtree: true });
+
+
   // Update logo crew planning
   /* let updateLogoCP = (elements:NodeListOf<HTMLElement> ) => {
 
