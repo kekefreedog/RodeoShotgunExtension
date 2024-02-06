@@ -28,7 +28,7 @@ async function startBrowser (browserName) {
   })
 
   if (browserName === 'firefox') {
-    const extension = await fs.readFile(path.join(__dirname, '..', '..', `web-extension-firefox-v${pkg.version}.xpi`))
+    const extension = await fs.readFile(path.join(__dirname, '..', '..', `shotgridrodeofx-firefox-v${pkg.version}.xpi`))
     await browser.installAddOn(extension.toString('base64'), true)
   }
 

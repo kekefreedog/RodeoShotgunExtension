@@ -1,10 +1,10 @@
 {
   "manifest_version": 2,
-  "name": "ShotGrid Rodeo Fx",
+  "name": "ShotGridRodeoFx",
   "author": "my@email.com",
   "description": "Extension for improving Shotgun UI.",
   "homepage_url": "https://projectUrl.com",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "content_scripts": [
     {
       "matches": ["https://shotgun.rodeofx.com/*"],
