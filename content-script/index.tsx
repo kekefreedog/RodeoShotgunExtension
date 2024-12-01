@@ -5,6 +5,15 @@ import manifest from '../public/manifest.json' assert { type: 'json' }
 
 import App from './component.jsx'
 import './index.css'
+import { addAbortListener } from 'events'
+
+import 'tippy.js/dist/tippy.css';
+import tippy from 'tippy.js';
+
+import Toastify from "toastify-js"
+import "toastify-js/src/toastify.css"
+
+import ClipboardJS from 'clipboard';
 
 /* "js": ["./contentScript/index.js"], */
 
@@ -39,6 +48,7 @@ import './index.css'
       if(isChrome() && "src" in element){
 
         // Replace src
+        // @ts-ignore
         element.src = chrome.runtime.getURL(
           document.body.classList.contains('sg_dark_theme') 
             ? 'logo-white.png' 
@@ -64,6 +74,7 @@ import './index.css'
       if(isChrome()){
 
         // Get temp logo
+        // @ts-ignore
         let tempLogo = chrome.runtime.getURL(
           document.body.classList.contains('sg_dark_theme') 
             ? 'logo-white.png' 
@@ -90,34 +101,134 @@ import './index.css'
 /**
  * Mutation
  */
-const collectionQcToHide:Array<string> = ["QC IO"]
+const collectionQcToHide:Array<string> = [
+  // Group by dept
+  "QC IO",
+  // Group by pipeline step
+  "QC IO (S)",
+  "QC BMM (S)",
+  "QC FX (S)",
+  "QC Layout (S)",
+  "QC Animation (S)",
+  "QC CFX (S)",
+  "QC IO (S)",
+]
 const observer = new MutationObserver((mutationsList, observer) => {
   let parent;
   let spans;
   let span;
   for(let mutation of mutationsList) {
       // Check QC IO
-      if (mutation.type === 'childList') {
-          const element = document.querySelector('.group_name');
-          for(let qcToHide of collectionQcToHide)
-            if (element && element.textContent === qcToHide) {
-                // console.log('Element QC IO found!');
-                parent = element.parentElement?.parentElement?.parentElement;
-                // Check parent
-                if(parent !== null && parent.classList.contains("group") && parent.classList.contains("collapsible") && parent.style.display !== 'none')
-                  // Switch disable
+      if (mutation.type === 'childList' && mutation.target instanceof HTMLDivElement) {
+        // Chrome method to hide group in player context
+        if(mutation.target && mutation.target.className == "sg vbox versions_main sg_scroll_area"){
+          // Get all group names
+          let groupNames = mutation.target.querySelectorAll(".items .group_name");
+          // Iteration group name
+          for(let groupName of groupNames){
+            for(let qcToHide of collectionQcToHide){
+              // Check if match
+              if(groupName.textContent == qcToHide){
+                let parent = groupName.parentElement?.parentElement?.parentElement;
+                if(parent)
                   parent.style.display = "none";
-                //observer.disconnect();  // Disconnect observer if element is found
-            }
-          const divs = document.querySelectorAll('tr.pivot_row.pivot_row_line, tr.pivot_row');
-          for(let div of divs){
-              spans = div.querySelectorAll('span.sg_status_icon');
-              for(let span of spans){
-                if (span !== null && span.getAttribute("sg_tip") == "Disabled (dis)" && div.style.display != 'none') {
-                  div.style.display = 'none';
-                }
+              }
+            }          
+          }
+          // Create a new KeyboardEvent for the 'Enter' key
+          let input = document.querySelector(".sgw_review_app_related_versions_menus_wrapper .quick_filter_input_container input");
+          // check input
+          if(input && input instanceof HTMLInputElement && !input.value){
+              setTimeout(() => {
+                let el = document.querySelector(".sgw_review_app_related_versions_top_pane ") as HTMLElement;
+                el.style.display = "flex";
+                el.style.justifyContent = "space-between";
+                el.style.alignItems = "center";
+                let buttonEl = document.createElement("button");
+                let toastSuccess = Toastify({
+                  text: 'Text copied ! ✅',
+                  backgroundColor: "--sg_TOAST_INFO_BACKGROUND_COLOR"
+                });
+                let toastFail = Toastify({
+                  text: 'Text not copied ! 🔴',
+                  backgroundColor: "--sg_TOAST_INFO_BACKGROUND_COLOR"
+                });
+                buttonEl.classList.add("rdo-btn-a");
+                buttonEl.textContent = "No QC Versions";
+                buttonEl.addEventListener("click",
+                  e => {
+                    e.preventDefault();
+                    // input.value = `-qcRender AND NOT ("${collectionQcToHide.join('" AND "')}")`;
+                    let content = `-qcRender AND NOT ("${collectionQcToHide.join('" AND "')}")`;
+                    let clipboard = new ClipboardJS(buttonEl, {
+                      text: function(trigger) {
+                          return content;
+                      }
+                    });
+                    clipboard.on('success', function(e) {
+                      console.log('Text copied to clipboard:', e.text);
+                      toastSuccess.showToast();
+                      e.clearSelection();
+                    });
+                
+                    clipboard.on('error', function(e) {
+                        console.log('Failed to copy text:', e);
+                        toastFail.showToast();
+                    });
+                    //set value into input
+                    //input.value = "-qcRender";
+                    //input.value = "-qcRender";
+                    // Dispatch the event on the input element
+                    /* let dispatch1 = input.dispatchEvent(new KeyboardEvent('keydown', {
+                      bubbles: true, // Event will bubble up through the DOM
+                      cancelable: false, // You can cancel the event
+                      key: 'Enter', // The key to be simulated
+                      code: 'Enter', // The code of the key to be simulated
+                      keyCode: 13, // The keyCode for Enter (for older browsers)
+                      charCode: 13 // The charCode for Enter (for older browsers)
+                    }));
+                    let dispatch2 = input.dispatchEvent(new Event('input', { bubbles: true }));
+                    console.log(dispatch1);
+                    console.log(dispatch2);
+                    input.blur(); */
+                  },
+                  {capture: true}
+                )
+                el.appendChild(buttonEl);
+                tippy(buttonEl, {
+                  content: "Please ensure Pipeline Steps is enable on search filter",
+                  placement: "bottom"
+                });
+                
+              }, 500);
+          }
+        }
+        // Chrome method to add button
+
+  /*         // 
+          const element = mutation.target.querySelector('.group_name');
+            for(let qcToHide of collectionQcToHide){
+              // Firefox method to hide group in player context
+              if (element && element.textContent == qcToHide) {
+                  console.log(`Element ${qcToHide} found!`);
+                  parent = element.parentElement?.parentElement?.parentElement;
+                  // Check parent
+                  if(parent !== null && parent.classList.contains("group") && parent.classList.contains("collapsible") && parent.style.display !== 'none')
+                    // Switch disable
+                    parent.style.display = "none";
+                  //observer.disconnect();  // Disconnect observer if element is found
               }
             }
+            const divs = document.querySelectorAll('tr.pivot_row.pivot_row_line, tr.pivot_row');
+            for(let div of divs){
+                spans = div.querySelectorAll('span.sg_status_icon');
+                for(let span of spans){
+                  if (div instanceof HTMLElement && span !== null && span.getAttribute("sg_tip") == "Disabled (dis)" && div.style.display != 'none') {
+                    div.style.display = 'none';
+                  }
+                }
+              } */
+
         };
       }
 });

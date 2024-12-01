@@ -1,6 +1,6 @@
 {
   "name": "rodeo_shotgun_extension",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Extension for improving Shotgun UI.",
   "author": "Christian Bromann <christian@stateful.com>",
   "license": "MIT",
@@ -76,7 +76,10 @@
     "webextension-polyfill": "^0.10.0"
   },
   "dependencies": {
+    "clipboard": "^2.0.11",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "tippy.js": "^6.3.7",
+    "toastify-js": "^1.12.0"
   }
 }

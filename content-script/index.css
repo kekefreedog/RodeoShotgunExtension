@@ -1,3 +1,6 @@
+/* Dark theme */
+@import url(./dark-theme.css);
+
 /* @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -22,6 +25,14 @@ div.project_thumb {
   /* Border radius */
   border-radius: 12px;
 
+}
+
+/* Round profile pic empty */
+.thumb_and_name .project_thumb_wrapper .sg_default_entity_thumb {
+
+  /* Border radius */
+  border-radius: 12px;
+  
 }
 
 /* 
@@ -64,6 +75,14 @@ img.sg_reset_img.thumb[data-cy="project_thumbnail"] {
 /*
  * Open Notes Count <-> player
  */
+
+/*
+ * Player
+ */
+
+.sg.hbox.sgw_review_app_related_versions_menus_wrapper {
+  overflow: hidden;
+}
 
 
 /**
@@ -174,7 +193,6 @@ div.sgc_new_popover.low_altitude {
   border-radius: 50%;
 }
 
-
 /* Scroll bar tool left items for small screen */
 #sg_global_nav .top_left_items{
   /* Dimension */
@@ -260,6 +278,26 @@ div.sgc_new_popover.low_altitude {
 
 }
 
+/* 
+ * Filter (text editor input on filter panel)
+ */
+
+.entity_editor.actual_entity_editor {
+
+  z-index: 10000!important;
+
+}
+
+/*
+ * Group
+ */
+
+.sgc_nested_grouping_dialog {
+
+  z-index: 10000!important;
+
+}
+
 /**********/
 
 /**
@@ -285,4 +323,34 @@ div.sgc_new_popover.low_altitude {
 div.sgc_canvas_designer_page.sg_page {
   /* Overflow */	
   /* overflow-y: scroll; */
+}
+
+/**
+ *
+ */
+.rdo-btn-a {
+  height: 30px;
+  padding: 0.125em 0.75em;
+  margin: 0px;
+  border-width: 0px;
+  background-color: rgb(6, 150, 215);
+  background-image: none;
+  color: rgb(255, 255, 255);
+  font-family: inherit;
+  font-size: inherit;
+  font-style: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  text-align: inherit;
+  box-sizing: border-box;
+  outline: none;
+  appearance: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  min-width: 3.25em;
+  border-radius: 0.125em 0px 0px 0.125em;
 }

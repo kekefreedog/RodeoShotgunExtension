@@ -1,0 +1,152 @@
+:root .sg_dark_theme {
+    --sg_COLOR_BACKGROUND_SURFACE_LEVEL_1: #2b2b2b!important; /* Slightly lighter for a modern feel */
+    --sg_COLOR_BACKGROUND_SURFACE_LEVEL_2: #1a1a1a!important; /* Darker but not too harsh */
+    --sg_COLOR_BACKGROUND_SURFACE_LEVEL_2_5: #171717!important; /* Blends well with the overall tone */
+    --sg_COLOR_BACKGROUND_SURFACE_LEVEL_3: #0f0f0f!important; /* Deep dark for high contrast areas */
+    --sg_SURFACE_LEVEL_1: #2b2b2b!important;
+    --sg_SURFACE_LEVEL_2: #1a1a1a!important;
+    --sg_SURFACE_LEVEL_2_5: #171717!important;
+    --sg_SURFACE_LEVEL_3: #0f0f0f!important;
+    --sg_BODY_BACKGROUND_COLOR: #0f0f0f!important; /* Consistent background for minimal strain */
+    --sg_PRIMARY_COLOR: rgba(245, 245, 245, 0.9)!important; /* Brighter primary text for clarity */
+    --sg_SUBTLE_COLOR: rgba(245, 245, 245, 0.65)!important; /* Slightly brighter subtle text */
+    --sg_DISABLED_COLOR: rgba(245, 245, 245, 0.4)!important; /* Consistent with the brighter palette */
+    --sg_ACCENT_COLOR: #0a84ff!important; /* A modern, vibrant blue accent */
+    --sg_CONTRAST_COLOR: #ffffff!important;
+    --sg_BORDER: 1px solid rgba(255, 255, 255, 0.1)!important;
+    --sg_BORDER_DASHED: 1px dashed rgba(255, 255, 255, 0.1)!important;
+    --sg_BORDER_COLOR: rgba(255, 255, 255, 0.1)!important;
+    --sg_BACKGROUND_DIVIDER_TRANSPARENT_10_COLOR: rgba(255, 255, 255, 0.1)!important;
+    --sg_BACKGROUND_DIVIDER_TRANSPARENT_25_COLOR: rgba(255, 255, 255, 0.25)!important;
+    --sg_BACKGROUND_DIVIDER_SOLID_COLOR: #4b4b4b!important;
+    --sg_DISABLED_OPACITY: 0.6!important;
+    --sg_SELECTION_COLOR: #8b8b8b!important; /* Softer selection color */
+    --sg_WEBKIT_SCROLLBACK_THUMB_BACKGROUND_COLOR: rgba(255, 255, 255, 0.25)!important; /* Slightly less intense */
+    --sg_CONTAINER_BACKGROUND_COLOR: #2b2b2b!important;
+    --sg_CONTAINER_SECONDARY_BACKGROUND_COLOR: #1a1a1a!important;
+    --sg_CONTAINER_BOX_SHADOW: 0 0 0 1px #4b4b4b, 0 0 0.25rem 0 #000!important;
+    --sg_CONTAINER_SELECTED_BOX_SHADOW: 0 0 0 2px #8b8b8b, 0 0 0.25rem 0 #000!important;
+    --sg_CONTAINER_WARNING_BACKGROUND_COLOR: #c17d11!important; /* Modernized orange tone */
+    --sg_CONTAINER_ALERT_BACKGROUND_COLOR: #b3423d!important; /* Subtle yet noticeable alert color */
+    --sg_CONTAINER_POSITIVE_BACKGROUND_COLOR: #6b8f28!important; /* A bit brighter green */
+    --sg_DROP_ZONE_BACKGROUND_COLOR: #1a1a1a!important;
+    --sg_PANEL_DIVIDER_BACKGROUND: #1a1a1a!important;
+    --sg_RESIZABLE_PROXY_BORDER: 2px solid #4b4b4b!important;
+    --sg_TEXT_SHADOW: 0 1px 5px #4b4b4b!important;
+    --sg_PAGE_BACKGROUND_COLOR: #2b2b2b!important;
+    --sg_PAGE_HEADER_BACKGROUND_COLOR: #2b2b2b!important;
+    --sg_DETAIL_PAGE_BACKGROUND_COLOR: #2b2b2b!important;
+    --sg_SIDE_BAR_BACKGROUND_COLOR: #1a1a1a!important;
+    --sg_GRID_BACKGROUND_COLOR: #0f0f0f!important;
+    --sg_GRID_HEADER_BACKGROUND_COLOR: #2b2b2b!important;
+    --sg_GRID_TABLE_HEADER_BACKGROUND_COLOR: #1a1a1a!important;
+    --sg_GRID_FOOTER_BACKGROUND_COLOR: #2b2b2b!important;
+    --sg_GRID_HEADING_SORTING_BACKGROUND_COLOR: rgba(255, 255, 255, 0.4)!important;
+    --sg_GRID_CHECKBOX_COLUMN_WIDTH: 1.25rem!important;
+    --sg_GRID_BORDER: 1px solid #555555!important; /* Softer borders */
+    --sg_GRID_HEADER_BORDER: 1px solid #888888!important;
+    --sg_GRID_VERTICAL_BORDER: 1px solid rgba(85, 85, 85, 0.4)!important;
+    --sg_GRID_BORDER_COLOR: #555555!important;
+    --sg_GRID_RESIZE_PROXY_BACKGROUND_COLOR: #0f0f0f!important;
+    --sg_GRID_SUMMARY_TABLE_BACKGROUND_COLOR: #171717!important;
+    --sg_GRID_ROW_ACTIVE_BACKGROUND_COLOR: rgb(64, 108, 127)!important; /* Slightly more vibrant */
+    --sg_GRID_CELL_BACKGROUND_COLOR: #2b2b2b!important;
+    --sg_GRID_CELL_HOVER_BACKGROUND_COLOR: rgb(45, 45, 45)!important; /* Smooth hover transition */
+    --sg_GRID_CELL_ACTIVE_BACKGROUND_COLOR: rgb(64, 108, 127)!important;
+    --sg_GRID_CELL_ACTIVE_BORDER_COLOR: #555555!important;
+    --sg_GRID_CELL_DISABLED_BACKGROUND_COLOR: #1a1a1a!important;
+    --sg_GRID_CELL_EDIT_BACKGROUND_COLOR: #2b2b2b!important;
+    --sg_MINI_GRID_CELL_CONTENT_BORDER_COLOR: #0f0f0f!important;
+    --sg_THUMBNAIL_GRID_CELL_BACKGROUND_COLOR: #1a1a1a!important;
+    --sg_THUMBNAIL_GRID_CELL_FIELDS_BACKGROUND_COLOR: #2b2b2b!important;
+    --sg_CANVAS_WIDGET_DRAG_HANDLE_BACKGROUND_COLOR: #1a1a1a!important;
+    --sg_CANVAS_WIDGET_DRAG_HANDLE_COLOR: rgba(245, 245, 245, 0.65)!important;
+    --sg_CANVAS_WIDGET_SAVE_BUTTON_BORDER: 1px solid rgba(34, 34, 34, 0.3)!important;
+    --sg_NAV_ITEM_COLOR: rgba(245, 245, 245, 0.9)!important; /* Brighter navigation items */
+    --sg_NAV_ITEM_HOVER_COLOR: #0a84ff!important;
+    --sg_NAV_ITEM_ACTIVE_COLOR: rgba(245, 245, 245, 0.9)!important;
+    --sg_NAV_ITEM_SELECTED_BORDER_BOTTOM: 3px solid #0a84ff!important;
+    --sg_PROJECT_CONFIG_NAV_TITLE_COLOR: rgba(245, 245, 245, 0.9)!important;
+    --sg_PROJECT_CONFIG_NAV_BACKGROUND_COLOR: #171717!important;
+    --sg_PROJECT_CONFIG_NAV_ITEM_BACKGROUND_COLOR: #2b2b2b!important;
+    --sg_PROJECT_CONFIG_NAV_ITEM_BORDER: 1px solid rgba(85, 85, 85, 0.3)!important;
+    --sg_GLOBAL_NAV_BACKGROUND_COLOR: #1a1a1a!important;
+    --sg_GLOBAL_NAV_BANNER_PRIMARY_BACKGROUND_COLOR: #0a5b8c!important; /* Slightly more vibrant blue */
+    --sg_PROJECT_NAV_BACKGROUND_COLOR: #171717!important;
+    --sg_MENU_BACKGROUND_COLOR: #2b2b2b!important;
+    --sg_MENU_LOADING_OVERLAY_BACKGROUND_COLOR: rgba(0, 0, 0, 0.5)!important;
+    --sg_MENU_SECTION_HEADING_COLOR: rgba(245, 245, 245, 0.65)!important;
+    --sg_MENU_ITEM_ACTIVE_BACKGROUND_COLOR: #0a5b8c!important;
+    --sg_MENU_ITEM_DISABLED_BACKGROUND_OPACITY: 0.6!important;
+    --sg_MENU_ITEM_THUMBNAIL_BACKGROUND_COLOR: #171717!important;
+    --sg_THUMBNAIL_BACKGROUND_COLOR: #1a1a1a!important;
+    --sg_POPOVER_BACKGROUND_COLOR: #2b2b2b!important;
+    --sg_FILTER_MENU_HEADER_BACKGROUND_COLOR: #2b2b2b!important;
+    --sg_FILTER_MENU_FOOTER_BACKGROUND_COLOR: #2b2b2b!important;
+    --sg_FILTER_MENU_SELECTED_BACKGROUND_COLOR: #0a6bbf!important;
+    --sg_SEARCH_POP_UP_HEADER_BACKGROUND_COLOR: #171717!important;
+    --sg_BUTTON_HOVER_BACKGROUND_COLOR: #ffffff!important; /* Consistent hover color */
+    --sg_BUTTON_ACTIVE_HALO_COLOR: rgba(10, 132, 255, 0.5)!important; /* Matches new accent color */
+    --sg_INPUT_BORDER: 1px solid #4b4b4b!important;
+    --sg_INPUT_BORDER_COLOR: #4b4b4b!important;
+    --sg_INPUT_BACKGROUND_COLOR: rgba(0, 0, 0, 0.25)!important;
+    --sg_INPUT_BACKGROUND_COLOR_SOLID: #171717!important;
+    --sg_INPUT_LABEL_COLOR: rgba(245, 245, 245, 0.65)!important;
+    --sg_INPUT_PLACEHOLDER_COLOR: rgba(245, 245, 245, 0.4)!important;
+    --sg_PASSWORD_STRENGTH_BACKGROUND_COLOR: #2b2b2b!important;
+    --sg_PROJECT_OVERVIEW_PAGE_BACKGROUND_COLOR: #0f0f0f!important;
+    --sg_PROJECT_OVERVIEW_BILLBOARD_BACKGROUND_COLOR: #2b2b2b!important;
+    --sg_PROJECT_OVERVIEW_LEFT_BAR_BACKGROUND_COLOR: #1a1a1a!important;
+    --sg_PROJECT_SCHEDULER_BACKGROUND_COLOR: #1a1a1a!important;
+    --sg_PROJECT_SCHEDULER_ITEM_BACKGROUND_COLOR: #171717!important;
+    --sg_PROJECT_SCHEDULER_ITEM_BORDER: 1px solid rgba(255, 255, 255, 0.1)!important;
+    --sg_PROJECT_SCHEDULER_ITEM_HOVER_BORDER: 1px solid rgba(255, 255, 255, 0.5)!important;
+    --sg_PROJECT_SCHEDULER_ITEM_ACTIVE_BACKGROUND_COLOR: rgba(10, 132, 255, 0.75)!important; /* Accent color for active items */
+    --sg_PROJECT_SCHEDULER_ITEM_ACTIVE_BORDER: 1px solid rgba(10, 132, 255, 0.75)!important;
+    --sg_PROJECT_SCHEDULER_ITEM_MILESTONE_BACKGROUND_COLOR: #6b8f28!important;
+    --sg_PROJECT_SCHEDULER_ITEM_MILESTONE_BORDER: 1px solid rgba(255, 255, 255, 0.1)!important;
+    --sg_TASK_SCHEDULER_SELECTED_BACKGROUND_COLOR: rgba(10, 132, 255, 0.75)!important;
+    --sg_TASK_SCHEDULER_MILESTONE_BACKGROUND_COLOR: #6b8f28!important;
+    --sg_TASK_SCHEDULER_MILESTONE_BORDER: 1px solid rgba(255, 255, 255, 0.1)!important;
+    --sg_TASK_SCHEDULER_MILESTONE_HOVER_BORDER: 1px solid rgba(255, 255, 255, 0.5)!important;
+    --sg_TASK_SCHEDULER_ITEM_BACKGROUND_COLOR: #171717!important;
+    --sg_TASK_SCHEDULER_ITEM_BORDER: 1px solid rgba(255, 255, 255, 0.1)!important;
+    --sg_TASK_SCHEDULER_ITEM_HOVER_BORDER: 1px solid rgba(255, 255, 255, 0.5)!important;
+    --sg_TIMELINE_BACKGROUND_COLOR: #1a1a1a!important;
+    --sg_TIMELINE_GRID_LINE_COLOR: rgba(255, 255, 255, 0.1)!important;
+    --sg_TIMELINE_MINOR_GRID_LINE_COLOR: rgba(255, 255, 255, 0.05)!important;
+    --sg_TIMELINE_TEXT_COLOR: rgba(245, 245, 245, 0.65)!important;
+    --sg_TIMELINE_PROXIMITY_LINE_COLOR: rgba(245, 245, 245, 0.4)!important;
+    --sg_TIMELINE_HANDLE_COLOR: rgba(245, 245, 245, 0.4)!important;
+    --sg_TIMELINE_EVENT_TEXT_COLOR: rgba(245, 245, 245, 0.9)!important;
+    --sg_TIMELINE_EVENT_TEXT_ACTIVE_COLOR: rgba(245, 245, 245, 0.9)!important;
+    --sg_TIMELINE_ACTIVE_COLOR: rgba(10, 132, 255, 0.75)!important;
+    --sg_DROPDOWN_ITEM_SELECTED_BACKGROUND_COLOR: rgba(10, 132, 255, 0.25)!important; /* Consistent dropdown selection */
+    --sg_SPINNER_COLOR: #4b4b4b!important;
+    --sg_TOAST_INFO_BACKGROUND_COLOR: #2b2b2b!important;
+    --sg_TOAST_INFO_BORDER: 1px solid rgba(255, 255, 255, 0.1)!important;
+    --sg_TOAST_WARNING_BACKGROUND_COLOR: #c17d11!important;
+    --sg_TOAST_WARNING_BORDER: 1px solid rgba(255, 255, 255, 0.1)!important;
+    --sg_TOAST_ALERT_BACKGROUND_COLOR: #b3423d!important;
+    --sg_TOAST_ALERT_BORDER: 1px solid rgba(255, 255, 255, 0.1)!important;
+    --sg_TOAST_POSITIVE_BACKGROUND_COLOR: #6b8f28!important;
+    --sg_TOAST_POSITIVE_BORDER: 1px solid rgba(255, 255, 255, 0.1)!important;
+    --sg_TOOL_TIP_BACKGROUND_COLOR: #2b2b2b!important;
+    --sg_TOOL_TIP_BORDER: 1px solid rgba(255, 255, 255, 0.1)!important;
+    --sg_TOOL_TIP_CONTENT_COLOR: rgba(245, 245, 245, 0.9)!important;
+    --sg_TOOL_TIP_ACTIVE_COLOR: rgba(245, 245, 245, 0.9)!important;
+    --sg_AVATAR_COLOR_1: #1a1a1a!important;
+    --sg_AVATAR_COLOR_2: #2b2b2b!important;
+    --sg_AVATAR_COLOR_3: #0f0f0f!important;
+    --sg_AVATAR_COLOR_4: #4b4b4b!important;
+    --sg_AVATAR_COLOR_5: #8b8b8b!important;
+    --sg_AVATAR_COLOR_6: #0a84ff!important; /* Accent color for avatars */
+    --sg_BADGE_BORDER: 1px solid rgba(255, 255, 255, 0.1)!important;
+    --sg_BADGE_BACKGROUND_COLOR: #171717!important;
+    --sg_ICON_LIGHT_COLOR: rgba(245, 245, 245, 0.9)!important;
+    --sg_ICON_DIM_COLOR: rgba(245, 245, 245, 0.4)!important;
+    --sg_NAV_BAR_LIGHT_COLOR: rgba(245, 245, 245, 0.9)!important;
+    --sg_NAV_BAR_DIM_COLOR: rgba(245, 245, 245, 0.4)!important;
+    --sg_VSCROLLBAR_BACKGROUND: rgba(0, 0, 0, 0.25)!important;
+    --sg_VSCROLLBAR_ACTIVE_BACKGROUND: rgba(0, 0, 0, 0.5)!important;
+}

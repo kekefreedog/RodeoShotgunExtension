@@ -1,13 +1,13 @@
 {
   "manifest_version": 2,
   "name": "ShotGridRodeoFx",
-  "author": "my@email.com",
+  "author": "kevin.zarshenas@gmail.com",
   "description": "Extension for improving Shotgun UI.",
-  "homepage_url": "https://projectUrl.com",
-  "version": "2.0.0",
+  "homepage_url": "https://github.com/kekefreedog",
+  "version": "2.1.0",
   "content_scripts": [
     {
-      "matches": ["https://shotgun.rodeofx.com/*"],
+      "matches": ["https://shotgun.rodeofx.com/*", "https://rodeofx.shotgrid.autodesk.com/*"],
       "run_at": "document_idle",
       "css": ["./style.css"],
       "js": ["./contentScript/index.js"]
@@ -23,7 +23,7 @@
     "default_title": "Open the popup",
     "default_icon": "icon-72x72.png"
   },
-  "permissions": [],
+  "permissions": ["activeTab", "clipboardWrite"],
   "icons": {
     "72": "icon-72x72.png",
     "96": "icon-96x96.png",
