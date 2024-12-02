@@ -4,7 +4,7 @@
   "author": "kevin.zarshenas@gmail.com",
   "description": "Extension for improving Shotgun UI.",
   "homepage_url": "https://github.com/kekefreedog",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "content_scripts": [
     {
       "matches": ["https://shotgun.rodeofx.com/*", "https://rodeofx.shotgrid.autodesk.com/*"],
