@@ -15,6 +15,7 @@ public
 # OS
 .DS_Store
 .claude
+CLAUDE.md
 
 # Extension artifacts
 *.crx

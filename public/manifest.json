@@ -33,8 +33,12 @@
   },
   "browser_specific_settings": {
     "gecko": {
-      "id": "kevin.zarshenas@gmail.com",
-      "strict_min_version": "109.0"
+      "id": "{8617accf-ad5a-46ff-a515-d746a82415c6}",
+      "strict_min_version": "109.0",
+      "data_collection_permissions": {
+        "required": ["none"],
+        "optional": []
+      }
     }
   },
   "permissions": [
