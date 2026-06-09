@@ -1,0 +1,152 @@
+@use './dark-theme';
+
+// ── Design tokens ─────────────────────────────────────────────────────────
+$accent:       #0696d7;
+$accent-hover: #1b7299;
+$logo-width:   135px;
+$radius-card:  12px;
+$radius-btn:   20px;
+$radius-tab:   5px;
+$radius-menu:  6px;
+$z-focus:      9999;
+$z-overlay:    10000;
+
+// ── Project overview ──────────────────────────────────────────────────────
+div.project_thumb,
+.thumb_and_name .project_thumb_wrapper .sg_default_entity_thumb {
+  border-radius: $radius-card;
+}
+
+img.sg_reset_img.thumb[data-cy="project_thumbnail"] {
+  margin: auto;
+}
+
+// ── Login page ────────────────────────────────────────────────────────────
+// Hide the original ShotGrid <img> — prevents a flash before the logo
+// feature JS runs. The JS feature sets opacity: 1 when disabled.
+.sg_reset_html .login_page main img {
+  width: 100%;
+  opacity: 0;
+}
+
+button[name="commit"][type="submit"] {
+  border-radius: $radius-btn !important;
+}
+
+// ── Header / Navigation ───────────────────────────────────────────────────
+// Logo background-image and img opacity are managed by the logo JS feature.
+#sg_global_nav {
+  .sg_user_thumb { border-radius: 50%; }
+
+  // Horizontal scroll for nav items on smaller screens
+  .top_left_items {
+    width: max-content;
+    overflow: auto hidden !important;
+    display: flex;
+    flex-wrap: nowrap !important;
+  }
+}
+
+// ── Tabs ──────────────────────────────────────────────────────────────────
+.sgc_page_layout_control.sg.newflex.hbox.acenter .tab {
+  color: #b6b6b6;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 4px;
+  margin-right: 10px;
+  border-radius: $radius-tab;
+
+  &:hover {
+    color: white;
+    background-color: $accent-hover !important;
+    cursor: pointer;
+  }
+
+  &.selected {
+    background-color: $accent;
+    color: white;
+  }
+}
+
+.sg_dark_theme .sgc_page_layout_control.sg.newflex.hbox.acenter .tab {
+  &:hover    { color: black; }
+  &.selected { color: black; }
+}
+
+// ── Context menu ──────────────────────────────────────────────────────────
+.sg_menu.sg_focusable { border-radius: $radius-menu; }
+
+// ── Forms / Dialogs ───────────────────────────────────────────────────────
+.sgc_importer,
+.sgc_edit_selected,
+.sg_dialog.sg_new_entity_form {
+  border-radius: $radius-card;
+}
+
+.sgc_importer .header,
+.sg_dialog.sg_new_entity_form .form_header .dialog_drag_div {
+  border-radius: $radius-card $radius-card 0 0;
+}
+
+.sgc_importer .footer,
+.sg_dialog.sg_new_entity_form .form_footer {
+  border-radius: 0 0 $radius-card $radius-card;
+}
+
+// ── Player ────────────────────────────────────────────────────────────────
+.sg.hbox.sgw_review_app_related_versions_menus_wrapper { overflow: hidden; }
+
+// ── Z-index fixes ─────────────────────────────────────────────────────────
+// Focus window must float above player overlays
+div.sg_focus_window,
+div.sg_focus_window.x-resizable-pinned {
+  z-index: $z-focus !important;
+}
+
+// Dropdowns, filter panels and nested dialogs must appear above the focus window
+div.sgc_new_popover.low_altitude,
+.entity_editor.actual_entity_editor,
+.sgc_nested_grouping_dialog {
+  z-index: $z-overlay !important;
+}
+
+// ── Widget canvas ─────────────────────────────────────────────────────────
+.sgw_canvas_wrapper .title { border-radius: 10px 10px 0 0; }
+
+// ── Media center ─────────────────────────────────────────────────────────
+.version.seltarget.selectable .fields { border-radius: $radius-btn; }
+
+.sgw_media_center {
+  li.x-tree-node .x-tree-node-el.x-tree-selected {
+    border-radius: 0 $radius-btn $radius-btn 0;
+  }
+
+  .left_pane .search_and_create_wrapper .search_wrapper input.item_search {
+    border-radius: $radius-btn;
+  }
+}
+
+// ── Bug fixes ─────────────────────────────────────────────────────────────
+// Aristote integration: history pane incorrectly renders in dark mode
+.sg_dark_theme div.sg_page div.page_settings_history_pane { display: none; }
+
+// ── Custom button (injected by content script) ────────────────────────────
+.rdo-btn-a {
+  height: 30px;
+  padding: 0.125em 0.75em;
+  margin: 0;
+  border: none;
+  background-color: $accent;
+  background-image: none;
+  color: #fff;
+  font: inherit;
+  text-align: inherit;
+  box-sizing: border-box;
+  outline: none;
+  appearance: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 3.25em;
+  border-radius: 0.125em 0 0 0.125em;
+}

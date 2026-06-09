@@ -1,0 +1,135 @@
+// ── Popup design tokens ───────────────────────────────────────────────────
+$bg:          #141414;
+$surface:     #1f1f1f;
+$border:      rgba(255, 255, 255, 0.08);
+$text:        rgba(245, 245, 245, 0.92);
+$subtle:      rgba(245, 245, 245, 0.45);
+$accent:      #0696d7;
+$accent-dim:  rgba(6, 150, 215, 0.18);
+$off:         rgba(255, 255, 255, 0.12);
+$radius:      6px;
+$popup-width: 272px;
+
+// ── Reset ─────────────────────────────────────────────────────────────────
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  width: $popup-width;
+  background: $bg;
+  color: $text;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  font-size: 13px;
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+}
+
+// ── Popup shell ───────────────────────────────────────────────────────────
+.popup {
+  display: flex;
+  flex-direction: column;
+}
+
+// ── Header ────────────────────────────────────────────────────────────────
+.popup-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  border-bottom: 1px solid $border;
+  background: $surface;
+}
+
+.popup-logo {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.popup-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: $text;
+  letter-spacing: 0.01em;
+}
+
+.popup-sub {
+  font-size: 11px;
+  color: $subtle;
+  display: block;
+  margin-top: 1px;
+}
+
+// ── Feature list ──────────────────────────────────────────────────────────
+.feature-list {
+  list-style: none;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 16px;
+  border-bottom: 1px solid $border;
+  transition: background 0.1s;
+
+  &:last-child { border-bottom: none; }
+  &:hover { background: rgba(255, 255, 255, 0.03); }
+}
+
+.feature-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.feature-label {
+  display: block;
+  font-weight: 500;
+  color: $text;
+  margin-bottom: 3px;
+}
+
+.feature-desc {
+  display: block;
+  font-size: 11px;
+  color: $subtle;
+  line-height: 1.45;
+}
+
+// ── Toggle switch ─────────────────────────────────────────────────────────
+.toggle {
+  flex-shrink: 0;
+  width: 38px;
+  height: 22px;
+  border-radius: 11px;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  transition: background 0.2s ease;
+  outline: none;
+  background: $off;
+
+  &:focus-visible {
+    box-shadow: 0 0 0 2px $accent;
+  }
+
+  &--on {
+    background: $accent;
+
+    .toggle-thumb { transform: translateX(16px); }
+  }
+}
+
+.toggle-thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff;
+  transition: transform 0.2s ease;
+  pointer-events: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+}

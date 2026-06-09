@@ -16,14 +16,15 @@ const fetchVersion = () => {
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [fetchVersion()],
+  plugins:   [fetchVersion()],
+  publicDir: false,
   build: {
     emptyOutDir: false,
-    outDir: path.resolve(__dirname, 'dist'),
+    outDir: path.resolve(__dirname, 'public'),
     lib: {
       formats: ['iife'],
-      entry: path.resolve(__dirname, 'background', 'index.ts'),
-      name: 'Cat Facts'
+      entry: path.resolve(__dirname, 'src', 'background', 'index.ts'),
+      name: 'ShotGridRodeoFx'
     },
     rollupOptions: {
       output: {

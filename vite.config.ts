@@ -1,29 +1,26 @@
 import { defineConfig } from 'vite'
 
-const fetchVersion = () => {
-  return {
-    name: 'html-transform',
-    transformIndexHtml(html) {
-      return html.replace(
-        /__APP_VERSION__/,
-        `v${process.env.npm_package_version}`
-      )
-    }
+const fetchVersion = () => ({
+  name: 'html-transform',
+  transformIndexHtml(html: string) {
+    return html.replace(/__APP_VERSION__/, `v${process.env.npm_package_version}`)
   }
-}
+})
 
 export default defineConfig({
+  // Root = src/ so popup/index.html outputs to public/popup/index.html (not public/src/popup/index.html)
+  root:      'src',
+  publicDir: '../static',
   plugins: [fetchVersion()],
   build: {
-    outDir: 'dist',
+    outDir:      '../public',
     emptyOutDir: false,
     rollupOptions: {
       input: {
-        popup: new URL('./popup/index.html', import.meta.url).pathname,
-        background: new URL('./background/index.html', import.meta.url).pathname
+        popup: new URL('./src/popup/index.html', import.meta.url).pathname
       },
       output: {
-        entryFileNames: "[name]/[name].js"
+        entryFileNames: '[name]/[name].js'
       }
     }
   }

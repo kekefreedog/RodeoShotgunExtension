@@ -4,16 +4,17 @@ import { defineConfig } from 'vite'
 
 export default defineConfig({
   plugins: [],
+  publicDir: false,
   define: {
     'process.env': {}
   },
   build: {
     emptyOutDir: false,
-    outDir: path.resolve(__dirname, 'dist'),
+    outDir: path.resolve(__dirname, 'public'),
     lib: {
       formats: ['iife'],
-      entry: path.resolve(__dirname, 'content-script', 'index.tsx'),
-      name: 'Cat Facts'
+      entry: path.resolve(__dirname, 'src', 'content-script', 'index.tsx'),
+      name: 'ShotGridRodeoFx'
     },
     rollupOptions: {
       output: {

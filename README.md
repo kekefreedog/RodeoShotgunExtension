@@ -1,76 +1,169 @@
-# My Web Extension
+# ShotGridRodeoFx
 
-> This is a starter kit for building cross platform browser extensions. You can use it as a template for your project. It comes with a [Vite](https://vitejs.dev/) + [TailwindCSS](https://tailwindcss.com/) + [WebdriverIO](https://webdriver.io) setup for building and testing extension popup modals, content and background scripts. Read more about building cross platform browser extensions in our [corresponding blog post](https://stateful.com/blog/building-cross-browser-web-extensions).
+Browser extension that improves the ShotGrid UI for Rodeo FX. Works on **Firefox** (MV3, ≥ 109) and **Chrome** (MV3, ≥ 137).
 
-A browser web extension that works on Chrome, Firefox and Safari. Download the extension on the marketplaces:
+Active on `https://shotgun.rodeofx.com/*` and `https://rodeofx.shotgrid.autodesk.com/*`.
 
-- Chrome:: https://chrome.google.com/webstore/detail/my-web-extension/lnihnbkolojkaehnkdmpliededkfebkk
-- Firefox: https://addons.mozilla.org/en-GB/firefox/addon/my-web-extension/
-- Safari: _(not yet supported, see [`stateful/web-extension-starter-kit#1`](https://github.com/stateful/web-extension-starter-kit/issues/1))_
+---
 
-## Development
-### Setup
+## Features
 
-Install dependencies via:
+All features are togglable live from the extension popup — no page reload needed.
+
+| Feature | Default | Description |
+|---|---|---|
+| **Darkest Mode** | on | Deeper blacks and blue accent on top of ShotGrid's dark theme |
+| **Logo Replacement** | on | Replaces the ShotGrid logo with the Rodeo FX logo (light/dark aware) |
+| **Hide QC Groups** | on | Hides QC pipeline-step groups in the review player |
+| **No QC Versions Button** | on | Injects a button that copies a ready-to-use filter string to clipboard |
+
+CSS-only enhancements (always active): border-radius polish, nav scrollbar, z-index fixes, tab styling, form rounding.
+
+---
+
+## Setup
 
 ```sh
 npm install
 ```
 
-then start a browser with the web extension installed:
+---
 
-```sh
-# run Chrome
-npm run start:chrome
+## Scripts
+
+### `npm run watch:firefox`
+Builds the extension, launches **Firefox** with the extension loaded at `rodeofx.shotgrid.autodesk.com`. Vite watches for file changes and rebuilds automatically; Firefox reloads the extension on each rebuild.
+
+### `npm run watch:chrome`
+Same but launches **Chrome** via web-ext CDP (works with Chrome ≥ 137). Chrome shows a one-time "unsupported flag" info bar on startup — cosmetic, can be dismissed.
+
+> Both watch commands use persistent dev profiles (`.firefox-dev-profile/`, `.chrome-dev-profile/`) stored at the project root and gitignored.
+
+### `npm run bundle:firefox`
+Full production build → `releases/firefox/shotgridrodeofx-firefox-v{version}.xpi`
+
+### `npm run bundle:chrome`
+Full production build → `releases/chrome/shotgridrodeofx-chrome-v{version}.zip`
+
+---
+
+## Loading the unpacked extension manually
+
+### Firefox
+1. Go to `about:debugging#/runtime/this-firefox`
+2. **Load Temporary Add-on…** → select `public/manifest.json`
+
+### Chrome
+1. Go to `chrome://extensions/` → enable **Developer mode**
+2. **Load unpacked** → select the `public/` folder
+
+> Run a bundle command first to populate `public/`.
+
+---
+
+## Project structure
+
+```
+src/
+  shared/
+    types.ts                  # FeatureSettings type, defaults, popup metadata
+  content-script/
+    index.tsx                 # Orchestrator — reads storage, wires features
+    utils.ts                  # Shared helpers (getLogoUrl, waitForElements)
+    index.scss                # ShotGrid UI fixes (always active)
+    dark-theme.scss           # Enhanced dark theme CSS variables
+    features/
+      dark-theme.ts           # Darkest mode toggle
+      logo.ts                 # Logo replacement toggle
+      qc-groups.ts            # QC group hiding toggle
+      no-qc-button.ts         # No QC Versions button toggle
+  background/
+    index.ts                  # MV3 service worker
+  popup/
+    index.html                # Popup entry point
+    index.tsx                 # React mount
+    component.tsx             # Popup UI — feature toggle list
+    Switch.tsx                # Reusable toggle switch component
+    style.scss                # Popup dark UI styles
+static/
+  manifest.json               # Unified MV3 manifest (Firefox + Chrome)
+  manifestv2.json             # Mirror — kept for version bump script
+  icon-*.png / logo-*.png     # Extension icons and RodeoFX logos
+public/                       # Compiled output — gitignored, rebuilt by scripts
+releases/
+  firefox/ / chrome/          # Packaged releases — gitignored
+assets/                       # Design source files (PSD originals) — not packaged
 ```
 
-or
+---
 
-```sh
-# run Firefox
-npm run start:firefox
+## Adding a new feature switch
+
+Each feature is a self-contained module. Four steps:
+
+### 1. Declare the setting — `src/shared/types.ts`
+
+```ts
+// Add to the interface:
+export interface FeatureSettings {
+  // ...existing...
+  myFeature: boolean
+}
+
+// Add to defaults:
+export const DEFAULT_SETTINGS: FeatureSettings = {
+  // ...existing...
+  myFeature: true,
+}
+
+// Add to popup metadata:
+export const FEATURE_DEFS = [
+  // ...existing...
+  {
+    key:         'myFeature' as const,
+    label:       'My Feature',
+    description: 'Short description shown in the popup',
+  },
+]
 ```
 
-This will build the extension and start a browser with it being loaded in it. After making changes, Vite automatically will re-compile the files and you can reload the extension to apply them in the browser.
+### 2. Create the feature module — `src/content-script/features/my-feature.ts`
 
-### Build
+Export `enable()` and `disable()`. Every DOM change made in `enable()` must be reversed in `disable()`.
 
-Bundle the extension by running:
+```ts
+export function enable(): void {
+  document.body.classList.add('rdo-my-feature')
+}
 
-```sh
-npm run build
+export function disable(): void {
+  document.body.classList.remove('rdo-my-feature')
+}
 ```
 
-This script will bundle the extension as `web-extension-chrome-vX.X.X.crx` and `web-extension-firefox-vX.X.X.zip`. The generated files are in `dist/`. You can also grab a version from the [latest test](https://github.com/stateful/web-extension-starter-kit/actions/workflows/test.yml) run on the `main` branch.
+### 3. Register it — `src/content-script/index.tsx`
 
-#### Load in Firefox
+```ts
+import * as MyFeature from './features/my-feature'
 
-To load the extension in Firefox go to `about:debugging#/runtime/this-firefox` or `Firefox > Preferences > Extensions & Themes > Debug Add-ons > Load Temporary Add-on...`. Here locate the `dist/` directory and open `manifestv2.json`
-
-#### Load in Chrome
-
-To load the extensions in Google Chrome go to `chrome://extensions/` and click `Load unpacked`. Locate the dist directory and select `manifest.json`.
-
-### Test
-
-This project tests the extension files using component tests and the extension integration via e2e test with WebdriverIO.
-
-Run unit/component tests:
-
-```sh
-npm run test:component
+const FEATURES: Record<keyof FeatureSettings, ...> = {
+  // ...existing...
+  myFeature: MyFeature,
+}
 ```
 
-Run e2e tests:
+### 4. Add CSS (optional) — `src/content-script/index.scss`
 
-```sh
-npm run test:e2e
+For togglable styles, scope them to the body class your feature adds:
+
+```scss
+body.rdo-my-feature .some-shotgrid-selector {
+  // your overrides
+}
 ```
 
-## Files:
+For styles that are always active (not tied to the toggle), add them directly to `index.scss` without the body class guard.
 
- - content-script - UI files
- - background.ts - Background script/Service worker
- - index.html - popup UI
+---
 
-If you have any questions feel free to open an issue.
+The popup toggle, storage persistence, and live reload are handled automatically by the orchestrator in `index.tsx`.

@@ -1,7 +1,26 @@
+# Dependencies
 node_modules
+
+# Build output
 dist
+public
+
+# Release packages
+# releases
+
+# Dev browser profiles (created by watch:firefox / watch:chrome)
+.firefox-dev-profile
+.chrome-dev-profile
+
+# OS
 .DS_Store
+.claude
+
+# Extension artifacts
 *.crx
 *.pem
 *.zip
 *.xpi
+
+# Design source files (not part of the extension)
+*.psd

@@ -1,12 +1,11 @@
 {
   "compilerOptions": {
     "composite": true,
-    //"module": "ESNext",
     "module": "NodeNext",
     "target": "ESNext",
     "moduleResolution": "NodeNext",
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true
   },
-  "include": ["vite.config.ts"]
+  "include": ["vite.config.ts", "vite.content.config.ts", "vite.chrome.config.ts"]
 }
