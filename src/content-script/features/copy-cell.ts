@@ -33,11 +33,17 @@ function injectIcon(cell: HTMLElement): void {
   const icon = document.createElement('div')
   icon.className = ICON_CLASS
   icon.title = 'Copy cell text'
+  // On short cells (<= 36px) ShotGrid shows its own hover icon at the
+  // bottom-right; shift our icon left so it doesn't cover it.
+  if (cell.offsetHeight <= 36) icon.classList.add(`${ICON_CLASS}--shift`)
   cell.appendChild(icon)
 }
 
 function cellText(cell: HTMLElement): string {
-  return (cell.querySelector('.sg_cell_content')?.textContent ?? '').trim()
+  const text = (cell.querySelector('.sg_cell_content')?.textContent ?? '').trim()
+  if (text) return text
+  // Icon-only cells (e.g. status) carry their value in the sg_tip attribute
+  return (cell.getAttribute('sg_tip') ?? '').trim()
 }
 
 export function enable(): void {

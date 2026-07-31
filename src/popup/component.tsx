@@ -30,7 +30,7 @@ export default function Popup() {
       <header className="popup-header">
         <img
           className="popup-logo"
-          src={browser.runtime.getURL('logo-white.png')}
+          src={browser.runtime.getURL('logo-mark.png')}
           alt="Rodeo FX"
         />
         <div>

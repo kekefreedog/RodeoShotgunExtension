@@ -109,6 +109,13 @@ div.sgc_new_popover.low_altitude,
   z-index: $z-overlay !important;
 }
 
+// ── Filter panel ──────────────────────────────────────────────────────────
+// Remove the overlay that dims/blocks the filter panel while value counts load.
+.dockable_filter_panel .loading_overlay,
+.sgc_filter_panel .loading_overlay {
+  display: none !important;
+}
+
 // ── Widget canvas ─────────────────────────────────────────────────────────
 .sgw_canvas_wrapper .title { border-radius: 10px 10px 0 0; }
 
@@ -128,6 +135,21 @@ div.sgc_new_popover.low_altitude,
 // ── Bug fixes ─────────────────────────────────────────────────────────────
 // Aristote integration: history pane incorrectly renders in dark mode
 .sg_dark_theme div.sg_page div.page_settings_history_pane { display: none; }
+
+// ── Message box (toast) ───────────────────────────────────────────────────
+.sgc_message_box {
+  // The container holds the background pill — round it here
+  border-radius: 16px !important;
+
+  .message { border-radius: 16px !important; vertical-align: middle; }
+
+  // Bigger, vertically-centered close button
+  .close_x {
+    margin: 10px;
+    font-size: 16px;
+    vertical-align: middle;
+  }
+}
 
 // ── Loading progress bar (feature: progressBar) ───────────────────────────
 // Restyle ShotGrid's overlay spinner into a slim indeterminate progress bar
@@ -203,6 +225,9 @@ body.rdo-copy-cell {
   }
 
   td.sg_cell:hover .rdo-copy-icon { display: block; }
+
+  // Short cells: shift left to clear ShotGrid's own bottom-right hover icon
+  .rdo-copy-icon.rdo-copy-icon--shift { right: 28px; }
 }
 
 // ── Custom button (injected by content script) ────────────────────────────

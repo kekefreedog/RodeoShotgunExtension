@@ -44,6 +44,8 @@ body {
   height: 32px;
   object-fit: contain;
   flex-shrink: 0;
+  // Black line-art mark → render it white for the dark popup header
+  filter: brightness(0) invert(1);
 }
 
 .popup-name {
