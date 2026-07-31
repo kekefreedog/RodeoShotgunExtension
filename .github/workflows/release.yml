@@ -14,6 +14,10 @@ permissions:
 jobs:
   build-and-sign:
     runs-on: ubuntu-latest
+    env:
+      # Clé privée de signature Chrome (contenu du .pem). Si absente, l'étape
+      # de packaging .crx est simplement ignorée (le .zip Chrome reste produit).
+      CRX_PRIVATE_KEY: ${{ secrets.CRX_PRIVATE_KEY }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -38,6 +42,25 @@ jobs:
       - name: Build Chrome zip
         run: npm run bundle:chrome
 
+      # Installe Chrome pour pouvoir empaqueter/signer le .crx
+      - name: Setup Chrome
+        if: env.CRX_PRIVATE_KEY != ''
+        id: setup-chrome
+        uses: browser-actions/setup-chrome@v1
+
+      # Empaquette le dossier public/ en .crx signé avec la clé privée
+      - name: Pack Chrome .crx
+        if: env.CRX_PRIVATE_KEY != ''
+        run: |
+          echo "$CRX_PRIVATE_KEY" > chrome-key.pem
+          VERSION=$(node -p "require('./package.json').version")
+          "${{ steps.setup-chrome.outputs.chrome-path }}" \
+            --pack-extension="$PWD/public" \
+            --pack-extension-key="$PWD/chrome-key.pem" \
+            --no-sandbox --disable-gpu
+          mv public.crx "releases/chrome/shotgridrodeofx-chrome-v${VERSION}.crx"
+          rm -f chrome-key.pem
+
       # Artefacts téléchargeables sur chaque run (utile pour les lancements manuels)
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
@@ -46,6 +69,7 @@ jobs:
           path: |
             releases/firefox/*.xpi
             releases/chrome/*.zip
+            releases/chrome/*.crx
           if-no-files-found: error
 
       # Sur un tag: crée/actualise la GitHub Release et y attache les binaires
@@ -56,3 +80,4 @@ jobs:
           files: |
             releases/firefox/*.xpi
             releases/chrome/*.zip
+            releases/chrome/*.crx
