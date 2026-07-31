@@ -9,7 +9,7 @@
     {
       "matches": [
         "https://shotgun.rodeofx.com/*",
-        "https://rodeofx.shotgrid.autodesk.com/*"
+        "https://*.shotgrid.autodesk.com/*"
       ],
       "run_at": "document_idle",
       "css": [
@@ -64,7 +64,7 @@
       ],
       "matches": [
         "https://shotgun.rodeofx.com/*",
-        "https://rodeofx.shotgrid.autodesk.com/*"
+        "https://*.shotgrid.autodesk.com/*"
       ]
     }
   ]

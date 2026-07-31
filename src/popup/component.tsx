@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import browser from 'webextension-polyfill'
 import type { FeatureSettings } from '../shared/types'
-import { DEFAULT_SETTINGS, FEATURE_DEFS } from '../shared/types'
+import { DEFAULT_SETTINGS, FEATURE_DEFS, FEATURE_CATEGORIES } from '../shared/types'
 import Switch from './Switch'
 import './style.scss'
 
@@ -40,19 +40,30 @@ export default function Popup() {
       </header>
 
       <ul className="feature-list">
-        {FEATURE_DEFS.map(({ key, label, description }) => (
-          <li key={key} className="feature-item">
-            <div className="feature-info">
-              <span className="feature-label">{label}</span>
-              <span className="feature-desc">{description}</span>
-            </div>
-            <Switch
-              checked={settings[key]}
-              onChange={() => toggle(key)}
-              label={`${settings[key] ? 'Disable' : 'Enable'} ${label}`}
-            />
-          </li>
-        ))}
+        {FEATURE_CATEGORIES.map(category => {
+          const features = FEATURE_DEFS.filter(f => f.category === category)
+          if (features.length === 0) return null
+          return (
+            <li key={category} className="feature-group">
+              <span className="feature-category">{category}</span>
+              <ul className="feature-sublist">
+                {features.map(({ key, label, description }) => (
+                  <li key={key} className="feature-item">
+                    <div className="feature-info">
+                      <span className="feature-label">{label}</span>
+                      <span className="feature-desc">{description}</span>
+                    </div>
+                    <Switch
+                      checked={settings[key]}
+                      onChange={() => toggle(key)}
+                      label={`${settings[key] ? 'Disable' : 'Enable'} ${label}`}
+                    />
+                  </li>
+                ))}
+              </ul>
+            </li>
+          )
+        })}
       </ul>
 
     </div>

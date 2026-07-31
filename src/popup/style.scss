@@ -61,8 +61,21 @@ body {
 }
 
 // ── Feature list ──────────────────────────────────────────────────────────
-.feature-list {
+.feature-list,
+.feature-sublist {
   list-style: none;
+}
+
+.feature-category {
+  display: block;
+  padding: 10px 16px 6px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: $subtle;
+  background: $surface;
+  border-bottom: 1px solid $border;
 }
 
 .feature-item {

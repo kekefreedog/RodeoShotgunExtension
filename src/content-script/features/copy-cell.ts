@@ -19,7 +19,7 @@ import 'toastify-js/src/toastify.css'
 
 const ICON_CLASS = 'rdo-copy-icon'
 const BODY_CLASS = 'rdo-copy-cell'
-const CELL_SELECTOR = 'td.sg_cell_editable'
+const CELL_SELECTOR = 'td.sg_cell'
 
 let onMouseOver: ((e: Event) => void) | null = null
 let onMouseDown: ((e: Event) => void) | null = null
@@ -27,8 +27,8 @@ let onClick:     ((e: Event) => void) | null = null
 
 function injectIcon(cell: HTMLElement): void {
   if (cell.querySelector(`.${ICON_CLASS}`)) return
-  // Only cells that actually have content are worth a copy button
-  if (!cell.querySelector('.sg_cell_content')) return
+  // Only cells with actual text are worth a copy button (skips empty / thumbnail cells)
+  if (!cellText(cell)) return
 
   const icon = document.createElement('div')
   icon.className = ICON_CLASS

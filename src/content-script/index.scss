@@ -181,7 +181,7 @@ body.rdo-progress-bar {
 // cell is hovered, matching ShotGrid's own edit-pencil behaviour.
 body.rdo-copy-cell {
   // Anchor the absolutely-positioned icon to the cell
-  td.sg_cell_editable { position: relative; }
+  td.sg_cell { position: relative; }
 
   .rdo-copy-icon {
     display: none;
@@ -202,7 +202,7 @@ body.rdo-copy-cell {
     &:hover { background-color: $accent; }
   }
 
-  td.sg_cell_editable:hover .rdo-copy-icon { display: block; }
+  td.sg_cell:hover .rdo-copy-icon { display: block; }
 }
 
 // ── Custom button (injected by content script) ────────────────────────────
