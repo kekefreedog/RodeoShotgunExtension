@@ -33,7 +33,7 @@ async function startBrowser (browserName) {
   }
 
   // await browser.url('https://github.com/stateful/web-extension-starter-kit')
-  await browser.url('https://shotgun.rodeofx.com')
+  await browser.url('https://rodeofx.shotgrid.autodesk.com/')
 }
 
 const browserName = process.argv.slice(2).pop() || 'chrome'
