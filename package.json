@@ -1,6 +1,6 @@
 {
   "name": "rodeo_shotgun_extension",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "Extension for improving Shotgun UI.",
   "author": "Christian Bromann <christian@stateful.com>",
   "license": "MIT",
@@ -10,7 +10,8 @@
     "watch:firefox": "rimraf public && vite build && vite build --config vite.content.config.ts && vite build --config vite.chrome.config.ts && (vite build --watch & vite build --config vite.content.config.ts --watch & vite build --config vite.chrome.config.ts --watch & web-ext run -s public/ --firefox=\"/Applications/Firefox.app/Contents/MacOS/firefox\" --firefox-profile=$PWD/.firefox-dev-profile --profile-create-if-missing --keep-profile-changes --pref extensions.backgroundServiceWorker.enabled=true --start-url https://rodeofx.shotgrid.autodesk.com; wait)",
     "watch:chrome": "rimraf public && vite build && vite build --config vite.content.config.ts && vite build --config vite.chrome.config.ts && (vite build --watch & vite build --config vite.content.config.ts --watch & vite build --config vite.chrome.config.ts --watch & web-ext run --target=chromium --chromium-binary=\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" -s public/ --start-url https://rodeofx.shotgrid.autodesk.com; wait)",
     "bundle:firefox": "node scripts/update-manifest-version.js && NODE_ENV=production rimraf public && tsc && vite build && vite build --config vite.content.config.ts && vite build --config vite.chrome.config.ts && mkdir -p releases/firefox && web-ext build -s public/ -a releases/firefox/ --overwrite-dest && mv releases/firefox/shotgridrodeofx-$npm_package_version.zip releases/firefox/shotgridrodeofx-firefox-v$npm_package_version.xpi",
-    "bundle:chrome": "node scripts/update-manifest-version.js && NODE_ENV=production rimraf public && tsc && vite build && vite build --config vite.content.config.ts && vite build --config vite.chrome.config.ts && mkdir -p releases/chrome && cd public && zip -r ../releases/chrome/shotgridrodeofx-chrome-v$npm_package_version.zip ."
+    "bundle:chrome": "node scripts/update-manifest-version.js && NODE_ENV=production rimraf public && tsc && vite build && vite build --config vite.content.config.ts && vite build --config vite.chrome.config.ts && mkdir -p releases/chrome && cd public && zip -r ../releases/chrome/shotgridrodeofx-chrome-v$npm_package_version.zip .",
+    "sign:firefox": "node scripts/update-manifest-version.js && NODE_ENV=production rimraf public && tsc && vite build && vite build --config vite.content.config.ts && vite build --config vite.chrome.config.ts && mkdir -p releases/firefox && web-ext sign -s public/ -a releases/firefox/ --channel=unlisted"
   },
   "devDependencies": {
     "@testing-library/react": "^14.0.0",

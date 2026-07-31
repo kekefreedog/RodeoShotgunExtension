@@ -1,88 +1,58 @@
-name: 'Release'
+name: Release
 
+# Déclenché quand tu pousses un tag de version (ex: v3.1.0),
+# ou manuellement depuis l'onglet Actions.
 on:
+  push:
+    tags:
+      - 'v*.*.*'
   workflow_dispatch:
-    inputs:
-      releaseType:
-        description: "Release Type"
-        required: true
-        type: choice
-        default: "patch"
-        options:
-          - patch
-          - minor
-          - major
-      preRelease:
-        description: If latest release was a pre-release (e.g. X.X.X-alpha.0) and you want to push another one, pick "yes"
-        required: true
-        type: choice
-        default: "no"
-        options:
-          - "yes"
-          - "no"
 
-env:
-  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+permissions:
+  contents: write # nécessaire pour créer la GitHub Release et y attacher les artefacts
 
 jobs:
-  release:
-    strategy:
-      fail-fast: false
+  build-and-sign:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out Git repository
-        uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
-          fetch-depth: 0
-      - name: Setup Git
-        run: |
-          git config --global user.name "stateful-wombot"
-          git config --global user.email "christian+github-bot@stateful.com"
-      - name: Install
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
         run: npm ci
-      - name: Bundle
-        run: npm run bundle
-      - name: Test
-        run: npm test
-        env:
-          NODE_ENV: production
-      - name: Prepare Release
-        run: |
-          git log $(git describe --tags --abbrev=0)..HEAD --oneline &> ${{ github.workspace }}-CHANGELOG.txt
-          cat ${{ github.workspace }}-CHANGELOG.txt
-          rm ./*.zip ./*.crx
-      - name: Release
-        run: npx release-it ${{github.event.inputs.releaseType}} --no-npm --no-github.release --ci --npm.skipChecks --no-git.requireCleanWorkingDir
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        if: ${{ github.event.inputs.preRelease == 'no' }}
-      - name: Set Release Version Environment Variable
-        run: echo "WEB_EXTENSION_VERSION=$(cat package.json | jq .version | cut -d "\"" -f 2)" >> $GITHUB_ENV
-      - name: GitHub Release
-        uses: ncipollo/release-action@v1
-        with:
-          artifacts: "./*.crx,./*.zip"
-          bodyFile: ${{ github.workspace }}-CHANGELOG.txt
-          tag: v${{ env.WEB_EXTENSION_VERSION }}
-          prerelease: ${{ github.event.inputs.preRelease == 'yes' }}
-      - uses: actions/upload-artifact@v3
-        with:
-          name: extension-files
-          path: |
-            ./*.crx
-            ./*.zip
-      - name: Submit to Mozilla
-        working-directory: ./dist
-        run: npx web-ext-submit@7
+
+      # Signe l'extension via l'API AMO et récupère le .xpi signé dans releases/firefox/
+      - name: Build & sign Firefox (unlisted)
         env:
           WEB_EXT_API_KEY: ${{ secrets.WEB_EXT_API_KEY }}
           WEB_EXT_API_SECRET: ${{ secrets.WEB_EXT_API_SECRET }}
-      - name: Submit to Google
-        working-directory: ./dist
-        run: npx chrome-webstore-upload-cli@2 upload --auto-publish
-        env:
-          EXTENSION_ID: ${{ secrets.EXTENSION_ID }}
-          CLIENT_ID: ${{ secrets.CLIENT_ID }}
-          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
-          REFRESH_TOKEN: ${{ secrets.REFRESH_TOKEN }}
+        run: npm run sign:firefox
+
+      # Construit le .zip Chrome (le dépôt au Chrome Web Store reste manuel)
+      - name: Build Chrome zip
+        run: npm run bundle:chrome
+
+      # Artefacts téléchargeables sur chaque run (utile pour les lancements manuels)
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: extensions
+          path: |
+            releases/firefox/*.xpi
+            releases/chrome/*.zip
+          if-no-files-found: error
+
+      # Sur un tag: crée/actualise la GitHub Release et y attache les binaires
+      - name: Attach to GitHub Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            releases/firefox/*.xpi
+            releases/chrome/*.zip

@@ -129,6 +129,82 @@ div.sgc_new_popover.low_altitude,
 // Aristote integration: history pane incorrectly renders in dark mode
 .sg_dark_theme div.sg_page div.page_settings_history_pane { display: none; }
 
+// ── Loading progress bar (feature: progressBar) ───────────────────────────
+// Restyle ShotGrid's overlay spinner into a slim indeterminate progress bar
+// pinned to the bottom of the loading frame. ShotGrid toggles the overlay's
+// inline `visibility` (visible while loading, hidden when done), so the bar
+// shows and hides automatically — no JS beyond the body-class toggle.
+body.rdo-progress-bar {
+  [data-cy="overlay-spinner"].progress_indicator_overlay_container {
+    // Don't dim the frame or swallow clicks while loading
+    background-color: transparent !important;
+    pointer-events: none;
+    // Clip the sliding segment to the frame so it never spills outside cards
+    overflow: hidden;
+
+    // Hide the original centered spinner gif
+    .progress_indicator_overlay { display: none !important; }
+
+    // Track
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 3px;
+      background-color: rgba(255, 255, 255, 0.12);
+    }
+
+    // Moving indeterminate segment
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      width: 35%;
+      height: 3px;
+      border-radius: 3px;
+      background-color: $accent;
+      animation: rdo-progress-slide 1.1s ease-in-out infinite;
+    }
+  }
+}
+
+@keyframes rdo-progress-slide {
+  0%   { left: -35%; }
+  100% { left: 100%; }
+}
+
+// ── Copy-cell icon (feature: copyCell) ────────────────────────────────────
+// A small copy button injected into editable grid cells on hover. It sits in
+// the top-right corner and copies the cell's text on click. Hidden until the
+// cell is hovered, matching ShotGrid's own edit-pencil behaviour.
+body.rdo-copy-cell {
+  // Anchor the absolutely-positioned icon to the cell
+  td.sg_cell_editable { position: relative; }
+
+  .rdo-copy-icon {
+    display: none;
+    position: absolute;
+    bottom: 1px;
+    right: 1px;
+    width: 15px;
+    height: 15px;
+    border-radius: 3px;
+    background-color: rgba(0, 0, 0, 0.45);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='9' y='9' width='13' height='13' rx='2'/%3E%3Cpath d='M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 10px 10px;
+    cursor: pointer;
+    z-index: 5;
+
+    &:hover { background-color: $accent; }
+  }
+
+  td.sg_cell_editable:hover .rdo-copy-icon { display: block; }
+}
+
 // ── Custom button (injected by content script) ────────────────────────────
 .rdo-btn-a {
   height: 30px;

@@ -4,7 +4,7 @@
   "author": "kevin.zarshenas@gmail.com",
   "description": "Extension for improving Shotgun UI.",
   "homepage_url": "https://github.com/kekefreedog",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "content_scripts": [
     {
       "matches": [
@@ -36,7 +36,9 @@
       "id": "{8617accf-ad5a-46ff-a515-d746a82415c6}",
       "strict_min_version": "109.0",
       "data_collection_permissions": {
-        "required": ["none"],
+        "required": [
+          "none"
+        ],
         "optional": []
       }
     }

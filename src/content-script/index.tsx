@@ -13,6 +13,8 @@ import * as DarkTheme from './features/dark-theme'
 import * as Logo      from './features/logo'
 import * as QcGroups  from './features/qc-groups'
 import * as NoQcBtn   from './features/no-qc-button'
+import * as ProgressBar from './features/progress-bar'
+import * as CopyCell   from './features/copy-cell'
 import './index.scss'
 
 // ── Feature registry ──────────────────────────────────────────────────────
@@ -22,6 +24,8 @@ const FEATURES: Record<keyof FeatureSettings, { enable(): void; disable(): void 
   logoReplacement: Logo,
   qcGroupHiding:   QcGroups,
   noQcButton:      NoQcBtn,
+  progressBar:     ProgressBar,
+  copyCell:        CopyCell,
 }
 
 // ── Bootstrap ─────────────────────────────────────────────────────────────
