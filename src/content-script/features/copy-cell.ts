@@ -27,6 +27,8 @@ let onClick:     ((e: Event) => void) | null = null
 
 function injectIcon(cell: HTMLElement): void {
   if (cell.querySelector(`.${ICON_CLASS}`)) return
+  // Checkboxes have no copyable text — sg_tip just carries "true"/"false", not real content
+  if (cell.getAttribute('data_type') === 'checkbox') return
   // Only cells with actual text are worth a copy button (skips empty / thumbnail cells)
   if (!cellText(cell)) return
 

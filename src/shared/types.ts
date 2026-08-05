@@ -1,21 +1,25 @@
 /** Settings persisted in browser.storage.sync. */
 export interface FeatureSettings {
-  darkTheme:       boolean
-  logoReplacement: boolean
-  qcGroupHiding:   boolean
-  noQcButton:      boolean
-  progressBar:     boolean
-  copyCell:        boolean
+  darkTheme:         boolean
+  logoReplacement:   boolean
+  qcGroupHiding:     boolean
+  noQcButton:        boolean
+  progressBar:       boolean
+  copyCell:          boolean
+  copyFieldName:     boolean
+  roundedCorners:    boolean
 }
 
 /** All features are enabled by default. */
 export const DEFAULT_SETTINGS: FeatureSettings = {
-  darkTheme:       true,
-  logoReplacement: true,
-  qcGroupHiding:   true,
-  noQcButton:      true,
-  progressBar:     true,
-  copyCell:        true,
+  darkTheme:         true,
+  logoReplacement:   true,
+  qcGroupHiding:     true,
+  noQcButton:        true,
+  progressBar:       true,
+  copyCell:          true,
+  copyFieldName:     true,
+  roundedCorners:    true,
 }
 
 /** Feature categories, in the order they appear in the popup. */
@@ -48,21 +52,21 @@ export const FEATURE_DEFS: Array<{
     category:    'Appearance',
   },
   {
-    key:         'qcGroupHiding',
-    label:       'Hide QC Groups',
-    description: 'Hides QC pipeline-step groups in the review player',
-    category:    'Review player',
-  },
-  {
-    key:         'noQcButton',
-    label:       'No QC Versions Button',
-    description: 'Injects a filter-copy button into the review player',
-    category:    'Review player',
+    key:         'roundedCorners',
+    label:       'Rounded Corners',
+    description: 'Softens ShotGrid\'s sharp corners across cards, buttons, tabs, menus, dialogs and the toast/message box',
+    category:    'Appearance',
   },
   {
     key:         'copyCell',
     label:       'Copy Cell Button',
     description: 'Adds a copy icon on hover of grid cells to copy their text',
+    category:    'Grid',
+  },
+  {
+    key:         'copyFieldName',
+    label:       'Copy Field Name Button',
+    description: 'Adds a copy icon on hover of column headers to copy the field\'s technical/API name',
     category:    'Grid',
   },
 ]

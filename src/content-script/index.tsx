@@ -15,17 +15,21 @@ import * as QcGroups  from './features/qc-groups'
 import * as NoQcBtn   from './features/no-qc-button'
 import * as ProgressBar from './features/progress-bar'
 import * as CopyCell   from './features/copy-cell'
+import * as CopyFieldName from './features/copy-field-name'
+import * as RoundedCorners from './features/rounded-corners'
 import './index.scss'
 
 // ── Feature registry ──────────────────────────────────────────────────────
 
 const FEATURES: Record<keyof FeatureSettings, { enable(): void; disable(): void }> = {
-  darkTheme:       DarkTheme,
-  logoReplacement: Logo,
-  qcGroupHiding:   QcGroups,
-  noQcButton:      NoQcBtn,
-  progressBar:     ProgressBar,
-  copyCell:        CopyCell,
+  darkTheme:          DarkTheme,
+  logoReplacement:    Logo,
+  qcGroupHiding:      QcGroups,
+  noQcButton:         NoQcBtn,
+  progressBar:        ProgressBar,
+  copyCell:           CopyCell,
+  copyFieldName:      CopyFieldName,
+  roundedCorners:     RoundedCorners,
 }
 
 // ── Bootstrap ─────────────────────────────────────────────────────────────
