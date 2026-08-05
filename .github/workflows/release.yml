@@ -24,6 +24,9 @@ jobs:
       CHROME_CLIENT_SECRET: ${{ secrets.CHROME_CLIENT_SECRET }}
       CHROME_REFRESH_TOKEN: ${{ secrets.CHROME_REFRESH_TOKEN }}
       CHROME_EXTENSION_ID: ${{ secrets.CHROME_EXTENSION_ID }}
+      CHROME_PUBLISHER_ID: ${{ secrets.CHROME_PUBLISHER_ID }}
+      # URL du webhook n8n (prod) à notifier en fin de release.
+      N8N_WEBHOOK_URL: ${{ secrets.N8N_WEBHOOK_URL }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -59,14 +62,18 @@ jobs:
       # la publication reste une action manuelle dans le Developer Dashboard.
       - name: Upload to Chrome Web Store
         if: startsWith(github.ref, 'refs/tags/') && env.CHROME_CLIENT_ID != ''
+        env:
+          # v4 de chrome-webstore-upload-cli n'accepte plus --client-id /
+          # --client-secret / --refresh-token, seulement ces variables d'env.
+          CLIENT_ID: ${{ env.CHROME_CLIENT_ID }}
+          CLIENT_SECRET: ${{ env.CHROME_CLIENT_SECRET }}
+          REFRESH_TOKEN: ${{ env.CHROME_REFRESH_TOKEN }}
         run: |
           VERSION=$(node -p "require('./package.json').version")
           npx chrome-webstore-upload-cli upload \
             --source "releases/chrome/shotgridrodeofx-chrome-v${VERSION}.zip" \
             --extension-id "$CHROME_EXTENSION_ID" \
-            --client-id "$CHROME_CLIENT_ID" \
-            --client-secret "$CHROME_CLIENT_SECRET" \
-            --refresh-token "$CHROME_REFRESH_TOKEN"
+            --publisher-id "$CHROME_PUBLISHER_ID"
 
       # Installe Chrome pour pouvoir empaqueter/signer le .crx
       - name: Setup Chrome
@@ -107,3 +114,9 @@ jobs:
             releases/firefox/*.xpi
             releases/chrome/*.zip
             releases/chrome/*.crx
+
+      # Notifie n8n par simple GET. On ignore la réponse et les erreurs:
+      # un webhook indisponible ne doit pas faire échouer le release.
+      - name: Notify n8n
+        if: always() && env.N8N_WEBHOOK_URL != ''
+        run: curl -s -o /dev/null "$N8N_WEBHOOK_URL" || true
