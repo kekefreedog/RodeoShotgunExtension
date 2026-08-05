@@ -18,6 +18,12 @@ jobs:
       # Clé privée de signature Chrome (contenu du .pem). Si absente, l'étape
       # de packaging .crx est simplement ignorée (le .zip Chrome reste produit).
       CRX_PRIVATE_KEY: ${{ secrets.CRX_PRIVATE_KEY }}
+      # Identifiants OAuth2 pour l'API Chrome Web Store. Si absents, l'étape
+      # d'upload est simplement ignorée (le .zip reste à déposer manuellement).
+      CHROME_CLIENT_ID: ${{ secrets.CHROME_CLIENT_ID }}
+      CHROME_CLIENT_SECRET: ${{ secrets.CHROME_CLIENT_SECRET }}
+      CHROME_REFRESH_TOKEN: ${{ secrets.CHROME_REFRESH_TOKEN }}
+      CHROME_EXTENSION_ID: ${{ secrets.CHROME_EXTENSION_ID }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -45,9 +51,22 @@ jobs:
           WEB_EXT_API_SECRET: ${{ secrets.WEB_EXT_API_SECRET }}
         run: npm run sign:firefox
 
-      # Construit le .zip Chrome (le dépôt au Chrome Web Store reste manuel)
+      # Construit le .zip Chrome
       - name: Build Chrome zip
         run: npm run bundle:chrome
+
+      # Envoie le .zip au Chrome Web Store en tant que brouillon (draft) —
+      # la publication reste une action manuelle dans le Developer Dashboard.
+      - name: Upload to Chrome Web Store
+        if: startsWith(github.ref, 'refs/tags/') && env.CHROME_CLIENT_ID != ''
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          npx chrome-webstore-upload-cli upload \
+            --source "releases/chrome/shotgridrodeofx-chrome-v${VERSION}.zip" \
+            --extension-id "$CHROME_EXTENSION_ID" \
+            --client-id "$CHROME_CLIENT_ID" \
+            --client-secret "$CHROME_CLIENT_SECRET" \
+            --refresh-token "$CHROME_REFRESH_TOKEN"
 
       # Installe Chrome pour pouvoir empaqueter/signer le .crx
       - name: Setup Chrome
