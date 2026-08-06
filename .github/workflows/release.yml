@@ -62,6 +62,9 @@ jobs:
       # la publication reste une action manuelle dans le Developer Dashboard.
       - name: Upload to Chrome Web Store
         if: startsWith(github.ref, 'refs/tags/') && env.CHROME_CLIENT_ID != ''
+        # Un échec ici (ex: refresh token expiré) ne doit pas empêcher le
+        # packaging du .crx ni l'attache des assets à la GitHub Release.
+        continue-on-error: true
         env:
           # v4 de chrome-webstore-upload-cli n'accepte plus --client-id /
           # --client-secret / --refresh-token, seulement ces variables d'env.
