@@ -17,6 +17,7 @@ import * as ProgressBar from './features/progress-bar'
 import * as CopyCell   from './features/copy-cell'
 import * as CopyFieldName from './features/copy-field-name'
 import * as RoundedCorners from './features/rounded-corners'
+import * as Secret     from './features/secret'
 import './index.scss'
 
 // ── Feature registry ──────────────────────────────────────────────────────
@@ -30,6 +31,7 @@ const FEATURES: Record<keyof FeatureSettings, { enable(): void; disable(): void 
   copyCell:           CopyCell,
   copyFieldName:      CopyFieldName,
   roundedCorners:     RoundedCorners,
+  secret:             Secret,
 }
 
 // ── Bootstrap ─────────────────────────────────────────────────────────────

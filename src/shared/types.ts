@@ -8,6 +8,7 @@ export interface FeatureSettings {
   copyCell:          boolean
   copyFieldName:     boolean
   roundedCorners:    boolean
+  secret:            boolean
 }
 
 /** All features are enabled by default. */
@@ -20,10 +21,11 @@ export const DEFAULT_SETTINGS: FeatureSettings = {
   copyCell:          true,
   copyFieldName:     true,
   roundedCorners:    true,
+  secret:            true,
 }
 
 /** Feature categories, in the order they appear in the popup. */
-export const FEATURE_CATEGORIES = ['Appearance', 'Review player', 'Grid'] as const
+export const FEATURE_CATEGORIES = ['Appearance', 'Review player', 'Grid', 'Fun'] as const
 export type FeatureCategory = typeof FEATURE_CATEGORIES[number]
 
 /** Human-readable metadata for each feature, used by the popup UI. */
@@ -68,5 +70,11 @@ export const FEATURE_DEFS: Array<{
     label:       'Copy Field Name Button',
     description: 'Adds a copy icon on hover of column headers to copy the field\'s technical/API name',
     category:    'Grid',
+  },
+  {
+    key:         'secret',
+    label:       'Secret',
+    description: 'Click a user\'s avatar 10 times for a little surprise',
+    category:    'Fun',
   },
 ]
