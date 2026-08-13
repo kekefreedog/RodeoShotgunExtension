@@ -3,6 +3,8 @@
 // ── Design tokens ─────────────────────────────────────────────────────────
 $accent:       #0696d7;
 $accent-hover: #1b7299;
+$dev-accent:   #7c4dff; // dev-copy button — deliberately not the ShotGrid blue
+$toast-bg:     #4a4a4a; // toast notification background
 $logo-width:   135px;
 $radius-card:  12px;
 $radius-btn:   20px;
@@ -262,6 +264,47 @@ body.rdo-copy-cell {
   }
 }
 
+// ── Dev-copy icon (feature: devCopyCell) ──────────────────────────────────
+// A `</>` button injected on hover into entity cells (those carrying
+// record_type + record_id). Copies the row's entity as a code snippet.
+// Violet instead of the copy icon's neutral grey so the two never get mixed up,
+// and stacked directly above it.
+body.rdo-dev-copy-cell {
+  // Anchor the absolutely-positioned icon to the cell (copy-cell may be off)
+  td.sg_cell { position: relative; }
+
+  .rdo-dev-copy-icon {
+    display: none;
+    position: absolute;
+    bottom: 18px; // sits on top of the copy icon (15px tall, bottom: 1px)
+    right: 1px;
+    width: 15px;
+    height: 15px;
+    border-radius: 3px;
+    background-color: rgba($dev-accent, 0.6);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='16 18 22 12 16 6'/%3E%3Cpolyline points='8 6 2 12 8 18'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 10px 10px;
+    cursor: pointer;
+    z-index: 5;
+
+    &:hover { background-color: $dev-accent; }
+  }
+
+  td.sg_cell:hover .rdo-dev-copy-icon { display: block; }
+
+  // Short cells have no room to stack — sit to the left of the copy icon
+  // instead, clearing ShotGrid's own bottom-right hover icon.
+  .rdo-dev-copy-icon--inline {
+    bottom: 1px;
+    right: 18px;
+  }
+
+  // …and further left when the copy icon is present and shifted (right: 28px)
+  &.rdo-copy-cell .rdo-dev-copy-icon--inline { right: 45px; }
+}
+
 // ── Copy field-name icon (feature: copyFieldName) ─────────────────────────
 // Small copy button on column headers, copies the field's technical/API
 // name (e.g. "sg_turnover_date"). Hidden until the header is hovered.
@@ -300,6 +343,16 @@ body.rdo-copy-field-name {
   }
 
   td.heading:hover .rdo-copy-field-icon { display: block; }
+}
+
+// ── Toast notifications (toastify-js) ─────────────────────────────────────
+// Replace the library's default green/blue gradient with a flat neutral grey.
+// `div.toastify` (element + class) outranks the library's `.toastify` rule
+// regardless of stylesheet order.
+div.toastify {
+  background: $toast-bg;
+  background-image: none;
+  color: #fff;
 }
 
 // ── Custom button (injected by content script) ────────────────────────────

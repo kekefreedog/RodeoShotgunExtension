@@ -42,10 +42,25 @@ function injectIcon(cell: HTMLElement): void {
 }
 
 function cellText(cell: HTMLElement): string {
+  const text = rawCellText(cell)
+  // Number cells are displayed with thousands separators ("10,000.56") — copy the
+  // plain value so it can be pasted straight into a spreadsheet or a calculation.
+  if (cell.getAttribute('data_type') === 'number') return parseNumber(text)
+  return text
+}
+
+function rawCellText(cell: HTMLElement): string {
   const text = (cell.querySelector('.sg_cell_content')?.textContent ?? '').trim()
   if (text) return text
   // Icon-only cells (e.g. status) carry their value in the sg_tip attribute
   return (cell.getAttribute('sg_tip') ?? '').trim()
+}
+
+function parseNumber(text: string): string {
+  if (!text) return text // Number('') is 0 — keep empty cells empty
+  const parsed = Number(text.replace(/,/g, ''))
+  // Leave anything Number() can't make sense of untouched (e.g. "--", ranges)
+  return Number.isFinite(parsed) ? String(parsed) : text
 }
 
 export function enable(): void {
