@@ -88,6 +88,11 @@ jobs:
             --extension-id "$CHROME_EXTENSION_ID" \
             --publisher-id "$CHROME_PUBLISHER_ID"
 
+      - name: Warn if Chrome upload was skipped
+        if: steps.chrome-upload.outcome == 'failure'
+        run: |
+          echo "::warning::Chrome upload failed — most likely a previous submission is still under Google review (an item can't be edited/published while 'in review'). Wait for that review to finish, then re-run this workflow to upload v$(node -p "require('./package.json').version")."
+
       # Publie automatiquement la version qui vient d'être uploadée — passe
       # de "brouillon" à "en cours de revue" auprès de Google, puis public
       # à 100% une fois la revue passée. Ignoré si l'upload a échoué (rien

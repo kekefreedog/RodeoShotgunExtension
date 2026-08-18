@@ -9,9 +9,10 @@
 
 ### C'est quoi ?
 
-**ShotGridRodeoFx** est une extension de navigateur (Chrome & Firefox) qui améliore l'interface ShotGrid pour les besoins de Rodeo FX. Elle s'active automatiquement sur `shotgun.rodeofx.com` et `rodeofx.shotgrid.autodesk.com`, sans rien changer côté serveur — tout se passe côté client, feature par feature, activable/désactivable depuis un popup.
+**ShotGridRodeoFx** est une extension de navigateur (Chrome & Firefox) qui améliore l'interface de Shotgun. Elle s'active automatiquement sur `rodeofx.shotgrid.autodesk.com` ( aucune installation serveur, aucun accès à tes données, bref tout se passe localement, dans le navigateur). 
+Chaque amélioration est une feature indépendante, que l'on active ou désactive à la volée depuis le popup de l'extension.
 
-**11 features**, organisées en 4 catégories : Apparence, Review Player, Grille, Fun.
+Liste des **features**, organisées en 4 catégories : Apparence, Review Player, Grille, Fun.
 
 ---
 
@@ -87,7 +88,7 @@ Cliquez 10 fois sur l'avatar d'un utilisateur pour une petite surprise. 👀
 ---
 ---
 
-## 🇬🇧 English
+## 🇨🇦 English
 
 ### What is it?
 
@@ -171,5 +172,5 @@ Click a user's avatar 10 times for a little surprise. 👀
 ## Notes for the presenter
 
 - All features toggle live from the extension popup — no page reload needed.
-- Available on both Chrome and Firefox (MV3).
+- Available on both Chrome and Firefox.
 - Suggested order for a live demo: Appearance → Review Player → Grid → Fun (save "Secret" for last 😉).
